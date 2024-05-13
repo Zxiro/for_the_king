@@ -3,10 +3,10 @@
 #include <string>
 #include "EventManager.h"
 #include "UIManager.h"
-#include "../entities/backpack/Backpack.h"
 #include "../entities/entity/creature/Player.h"
 #include "../entities/entity/RandomEvent.h"
 #include "../controller/GameStateController.h"
+#include "../entities/Backpack.h"
 
 using namespace std;
 

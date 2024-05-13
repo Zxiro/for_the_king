@@ -1,9 +1,7 @@
-﻿
+﻿#include "Test.h"
 
-
-#include "Test.h"
-
-int main() {
-	Test test;
-	test.printUI();
+int main()
+{
+    Test test;
+    test.printUI();
 }
