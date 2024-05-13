@@ -1,4 +1,6 @@
 #pragma once
-class RandomEvent {
+#include "Entity.h"
+
+class RandomEvent: Entity {
 
 };
