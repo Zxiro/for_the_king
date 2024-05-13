@@ -110,6 +110,7 @@ class Test {
 			return hbox(move(players));
 			});
 	}
+
 	// Sidebar
 	Component printSidebarUI() {
 		// fake data
