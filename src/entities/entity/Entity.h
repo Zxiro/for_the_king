@@ -3,7 +3,8 @@
 
 #include "../../structs/Position.h"
 
-class Entity {
+class Entity
+{
 public:
     Entity(Position pos, std::string display)
     {
@@ -14,6 +15,11 @@ public:
     Position getPosition() const
     {
         return this->position;
+    }
+
+    std::string getDisplay()
+    {
+        return display;
     }
 private:
     Position position;

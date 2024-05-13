@@ -144,6 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\entities\Backpack.h" />
+    <ClInclude Include="src\entities\entity\creature\Creature.h" />
     <ClInclude Include="src\entities\entity\Entity.h" />
     <ClInclude Include="src\entities\entity\Tent.h" />
     <ClInclude Include="src\manager\EventManager.h" />
@@ -154,6 +155,9 @@
     <ClInclude Include="src\structs\Position.h" />
     <ClInclude Include="src\Test.h" />
     <ClInclude Include="src\manager\UIManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\manager\Singleton.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
