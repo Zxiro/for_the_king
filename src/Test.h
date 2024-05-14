@@ -1,6 +1,10 @@
-﻿#include <memory>
+﻿#ifndef TEST_H
+#define TEST_H
+
+#include <memory>
 #include <random>
 #include <windows.h>
+
 #include "ftxui/component/captured_mouse.hpp"
 #include "ftxui/component/component.hpp"
 #include <ftxui/component/mouse.hpp>
@@ -275,3 +279,5 @@ class Test {
 			screen.Loop(renderer);
 		}
 };
+
+#endif

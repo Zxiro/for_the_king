@@ -1,6 +1,9 @@
-#pragma once
+#ifndef GAMEMANAGER_H
+#define GAMEMANAGER_H
+
 #include <vector>
 #include <string>
+
 #include "EventManager.h"
 #include "UIManager.h"
 #include "../entities/entity/creature/Player.h"
@@ -22,3 +25,5 @@ public:
 	GameStateController gameStateController;
 	//BattleManager battleManager;
 };
+
+#endif

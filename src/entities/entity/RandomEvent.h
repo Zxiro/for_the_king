@@ -1,6 +1,10 @@
-#pragma once
+#ifndef RANDOMEVENT_H
+#define RANDOMEVENT_H
+
 #include "Entity.h"
 
 class RandomEvent: Entity {
 
 };
+
+#endif

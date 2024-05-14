@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CREATURE_H
+#define CREATURE_H
 
 class Creature
 {
@@ -59,3 +60,5 @@ private:
     int pDefense;
     int mDefense;
 };
+
+#endif
