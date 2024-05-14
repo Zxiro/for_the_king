@@ -23,7 +23,7 @@
     <ClInclude Include="src\Test.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\controller\GameStateController.h">
+    <ClInclude Include="src\manager\GameStateManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\entities\entity\creature\Player.h">
@@ -56,7 +56,7 @@
     <ClInclude Include="src\structs\Position.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\item\item.h">
+    <ClInclude Include="src\item\Item.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\entities\entity\Store.h">

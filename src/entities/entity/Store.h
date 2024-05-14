@@ -1,10 +1,14 @@
 #ifndef STORE_H
 #define STORE_H
 
+#include <exception>
 #include <map>
 #include <string>
 
 #include "Entity.h"
+#include "../../exception/Exception.h"
+#include "../../manager/GameManager.h"
+#include "../../manager/Singleton.h"
 #include "../../structs/Position.h"
 
 class Store : public Entity
@@ -34,14 +38,21 @@ public:
 		};
 	};
 
-	int getItemPrice(const std::string& itemName)
+	void buyItem(const std::string &itemName)
 	{
-		return items[itemName];
+		int money = Singleton<GameManager>::instance()->backpack.getMoney();
+		int price = items[itemName];
+
+		if (money < price)
+			throw MoneyNotEnoughException();
+
+		Singleton<GameManager>::instance()->backpack.setMoney(money - price);
+		Singleton<GameManager>::instance()->backpack.addItem(itemName);
 	}
 
-	void displayItems() const
+	std::map<std::string, int> getItems() const
 	{
-
+		return items;
 	}
 
 protected:

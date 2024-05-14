@@ -3,7 +3,7 @@
 
 #include "Entity.h"
 
-class RandomEvent: public Entity
+class RandomEvent : public Entity
 {
 
 };

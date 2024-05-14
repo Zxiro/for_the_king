@@ -3,7 +3,7 @@
 
 #include "Entity.h"
 
-class Tent: public Entity
+class Tent : public Entity
 {
 public:
     

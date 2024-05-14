@@ -1,29 +1,27 @@
 #ifndef GAMEMANAGER_H
 #define GAMEMANAGER_H
 
-#include <vector>
 #include <string>
+#include <vector>
 
 #include "EventManager.h"
 #include "UIManager.h"
-#include "../entities/entity/creature/Player.h"
-#include "../entities/entity/RandomEvent.h"
-#include "../controller/GameStateController.h"
 #include "../entities/Backpack.h"
-
-using namespace std;
+#include "../entities/entity/RandomEvent.h"
+#include "../entities/entity/creature/Player.h"
+#include "../manager/GameStateManager.h"
 
 class GameManager
 {
 public: 
-	vector<vector<string>> map;
-	vector<Player> players;
-	vector<Player> enemies;
-	vector<RandomEvent> worldEvent;
+	std::vector<std::vector<std::string>> map;
+	std::vector<Player> players;
+	std::vector<Player> enemies;
+	std::vector<RandomEvent> worldEvent;
 	Backpack backpack;
 	EventManager eventManager;
 	UIManager uiManager;
-	GameStateController gameStateController;
+	GameStateManager gameStateManager;
 	//BattleManager battleManager;
 
 protected:

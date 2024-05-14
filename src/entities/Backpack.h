@@ -6,7 +6,8 @@
 
 #include "../item/item.h"
 
-class Backpack {
+class Backpack
+{
 public:
 	Backpack()
 		: money(600)
@@ -42,24 +43,19 @@ public:
 		money = _money;
 	}
 
-	void addItem(const std::string& itemName)
+	void addItem(const std::string &itemName)
 	{
 		items[itemName] += 1;
 	}
 
-	void removeItem(const std::string& itemName)
+	void removeItem(const std::string &itemName)
 	{
 		items[itemName] -= 1;
 	}
 
-	int getItemCount(const std::string& itemName)
+	std::map<std::string, int> getItems() const
 	{
-		return items[itemName];
-	}
-
-	void displayItems() const
-	{
-
+		return items;
 	}
 
 private:
