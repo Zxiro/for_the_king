@@ -1,8 +1,12 @@
-﻿#pragma once
+﻿#ifndef TENT_H
+#define TENT_H
+
 #include "Entity.h"
 
-class Tent: Entity
+class Tent: public Entity
 {
 public:
     
 };
+
+#endif

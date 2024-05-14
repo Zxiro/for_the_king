@@ -1,6 +1,9 @@
-#pragma once
+#ifndef GAMEMANAGER_H
+#define GAMEMANAGER_H
+
 #include <vector>
 #include <string>
+
 #include "EventManager.h"
 #include "UIManager.h"
 #include "../entities/entity/creature/Player.h"
@@ -10,7 +13,8 @@
 
 using namespace std;
 
-class GameManager {
+class GameManager
+{
 public: 
 	vector<vector<string>> map;
 	vector<Player> players;
@@ -21,4 +25,8 @@ public:
 	UIManager uiManager;
 	GameStateController gameStateController;
 	//BattleManager battleManager;
+
+protected:
 };
+
+#endif

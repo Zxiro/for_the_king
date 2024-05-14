@@ -1,6 +1,9 @@
-#pragma once
+#ifndef CREATURE_H
+#define CREATURE_H
 
-class Creature
+#include "../Entity.h"
+
+class Creature : public Entity
 {
 public :
     int getHp() const
@@ -48,7 +51,7 @@ public :
         return mDefense;
     }
 
-private:
+protected:
     int hp;
     int vitality;
     int focus;
@@ -59,3 +62,5 @@ private:
     int pDefense;
     int mDefense;
 };
+
+#endif

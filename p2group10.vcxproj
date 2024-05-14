@@ -146,7 +146,9 @@
     <ClInclude Include="src\entities\Backpack.h" />
     <ClInclude Include="src\entities\entity\creature\Creature.h" />
     <ClInclude Include="src\entities\entity\Entity.h" />
+    <ClInclude Include="src\entities\entity\Store.h" />
     <ClInclude Include="src\entities\entity\Tent.h" />
+    <ClInclude Include="src\item\item.h" />
     <ClInclude Include="src\manager\EventManager.h" />
     <ClInclude Include="src\manager\GameManager.h" />
     <ClInclude Include="src\controller\GameStateController.h" />
