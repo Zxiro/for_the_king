@@ -13,7 +13,8 @@
 
 using namespace std;
 
-class GameManager {
+class GameManager
+{
 public: 
 	vector<vector<string>> map;
 	vector<Player> players;
@@ -24,6 +25,8 @@ public:
 	UIManager uiManager;
 	GameStateController gameStateController;
 	//BattleManager battleManager;
+
+protected:
 };
 
 #endif

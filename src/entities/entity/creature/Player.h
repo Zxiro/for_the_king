@@ -3,7 +3,8 @@
 
 #include "Creature.h"
 
-class Player: Creature {
+class Player: public Creature
+{
     
 };
 

@@ -3,7 +3,8 @@
 
 #include "Entity.h"
 
-class RandomEvent: Entity {
+class RandomEvent: public Entity
+{
 
 };
 
