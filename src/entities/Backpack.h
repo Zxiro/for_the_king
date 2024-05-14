@@ -4,7 +4,7 @@
 #include <map>
 #include <string>
 
-#include "../item/item.h"
+#include "../item/Item.h"
 
 class Backpack
 {
@@ -50,6 +50,7 @@ public:
 
 	void removeItem(const std::string &itemName)
 	{
+		// TODO: 防止物品出現負數
 		items[itemName] -= 1;
 	}
 

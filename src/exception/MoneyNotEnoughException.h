@@ -1,5 +1,5 @@
-#ifndef EXCEPTION_H
-#define EXCEPTION_H
+#ifndef MONEYNOTENOUGHEXCEPTION_H
+#define MONEYNOTENOUGHEXCEPTION_H
 
 #include <exception>
 

@@ -6,7 +6,7 @@
 #include <string>
 
 #include "Entity.h"
-#include "../../exception/Exception.h"
+#include "../../exception/MoneyNotEnoughException.h"
 #include "../../manager/GameManager.h"
 #include "../../manager/Singleton.h"
 #include "../../structs/Position.h"
