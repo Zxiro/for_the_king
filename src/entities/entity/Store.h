@@ -1,7 +1,6 @@
 #ifndef STORE_H
 #define STORE_H
 
-#include <exception>
 #include <map>
 #include <string>
 
