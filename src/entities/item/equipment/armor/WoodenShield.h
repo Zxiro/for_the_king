@@ -1,23 +1,18 @@
-#ifndef WOODENSWORD_H
-#define WOODENSWORD_H
+#ifndef WOODEN_SHIELD_H
+#define WOODEN_SHIELD_H
 #include <string>
 
-#include "Weapon.h"
+#include "Armor.h"
 
-class WoodenSword: public Weapon
+class WoodenSword: Armor
 {
 public:
-    WoodenSword(): Weapon(3)
-    {
-        
-    }
-
-    EffectData getEffect() const override
+    virtual EffectData getEffect() const override
     {
         return EffectData {
             speedEffect,
-            hitRateEffect + 10,
-            pAttackEffect + 5,
+            hitRateEffect,
+            pAttackEffect + 10,
             mAttackEffect,
             pDefenseEffect,
             mDefenseEffect

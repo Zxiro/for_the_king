@@ -3,6 +3,7 @@
 
 #include "../enum/EquipmentType.h"
 #include "../item/Item.h"
+#include "../exception/UnImplementException.h"
 
 class Equipment: public Item
 {
@@ -16,7 +17,11 @@ public:
     {
         return skills;
     }
-    
+
+    virtual static std::string getName()
+    {
+        throw UnImplementException();
+    }
 private:
     EquipmentType type;
     std::vector<std::string> skills;

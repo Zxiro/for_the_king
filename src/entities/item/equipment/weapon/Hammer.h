@@ -1,5 +1,7 @@
 #ifndef HAMMER_H
 #define HAMMER_H
+#include <string>
+
 #include "Weapon.h"
 
 class Hammer: public Weapon
@@ -21,6 +23,11 @@ public:
             mDefenseEffect
         };
     }
+
+    std::string getName() override
+    {
+        return "Hammer";
+    };
 };
 
 #endif

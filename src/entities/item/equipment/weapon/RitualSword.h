@@ -1,5 +1,7 @@
 #ifndef RITUAL_SWORD_H
 #define RITUAL_SWORD_H
+#include <string>
+
 #include "Weapon.h"
 
 class RitualSword: public Weapon
@@ -21,6 +23,11 @@ public:
             mDefenseEffect
         };
     }
+
+    std::string getName() override
+    {
+        return "RitualSword";
+    };
 };
 
 #endif

@@ -151,6 +151,11 @@
     <ClInclude Include="src\entities\entity\Tent.h" />
     <ClInclude Include="src\entities\item\equipment\accessory\Accessory.h" />
     <ClInclude Include="src\entities\item\equipment\armor\Armor.h" />
+    <ClInclude Include="src\entities\item\equipment\armor\LaurelWreath.h" />
+    <ClInclude Include="src\entities\item\equipment\armor\LeatherArmor.h" />
+    <ClInclude Include="src\entities\item\equipment\armor\PlateArmor.h" />
+    <ClInclude Include="src\entities\item\equipment\armor\Robe.h" />
+    <ClInclude Include="src\entities\item\equipment\armor\WoodenShield.h" />
     <ClInclude Include="src\entities\item\equipment\Equipment.h" />
     <ClInclude Include="src\entities\item\equipment\weapon\GiantHammer.h" />
     <ClInclude Include="src\entities\item\equipment\weapon\Hammer.h" />

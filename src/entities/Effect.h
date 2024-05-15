@@ -1,5 +1,6 @@
 #ifndef EFFECT_H
 #define EFFECT_H
+#include "../exception/UnImplementException.h"
 #include "../structs/EffectData.h"
 
 class Effect
@@ -7,14 +8,7 @@ class Effect
 public:
     virtual EffectData getEffect() const
     {
-        return EffectData {
-            speedEffect,
-            hitRateEffect,
-            pAttackEffect,
-            mAttackEffect,
-            pDefenseEffect,
-            mDefenseEffect
-        };
+        throw UnImplementException();
     }
 private:
     int speedEffect = 0;

@@ -1,5 +1,7 @@
 #ifndef MAGIC_WAND_H
 #define MAGIC_WAND_H
+#include <string>
+
 #include "Weapon.h"
 
 class MagicWand: public Weapon
@@ -21,6 +23,11 @@ public:
             mDefenseEffect
         };
     }
+
+    std::string getName() override
+    {
+        return "MagicWand";
+    };
 };
 
 #endif
