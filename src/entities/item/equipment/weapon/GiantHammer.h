@@ -25,7 +25,7 @@ public:
         };
     }
 
-    static std::string getName() override
+    std::string getName() override
     {
         return "GiantHammer";
     };

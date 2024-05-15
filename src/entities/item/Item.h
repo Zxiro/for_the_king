@@ -5,6 +5,9 @@
 class Item: public Effect
 {
 public:
-    
+    virtual std::string getName()
+    {
+        throw UnImplementException();
+    }
 };
 #endif
