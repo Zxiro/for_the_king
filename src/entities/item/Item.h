@@ -1,6 +1,8 @@
 #ifndef ITEM_H
 #define ITEM_H
-class Item
+#include "../Effect.h"
+
+class Item: public Effect
 {
 public:
     

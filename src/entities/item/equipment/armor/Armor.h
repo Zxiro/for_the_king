@@ -5,6 +5,9 @@
 class Armor: public Equipment
 {
 public:
-    
+    Armor(): Equipment(EquipmentType::armor)
+    {
+        
+    }
 };
 #endif

@@ -152,7 +152,12 @@
     <ClInclude Include="src\entities\item\equipment\accessory\Accessory.h" />
     <ClInclude Include="src\entities\item\equipment\armor\Armor.h" />
     <ClInclude Include="src\entities\item\equipment\Equipment.h" />
+    <ClInclude Include="src\entities\item\equipment\weapon\GiantHammer.h" />
+    <ClInclude Include="src\entities\item\equipment\weapon\Hammer.h" />
+    <ClInclude Include="src\entities\item\equipment\weapon\MagicWand.h" />
+    <ClInclude Include="src\entities\item\equipment\weapon\RitualSword.h" />
     <ClInclude Include="src\entities\item\equipment\weapon\Weapon.h" />
+    <ClInclude Include="src\entities\item\equipment\weapon\WoodenSword.h" />
     <ClInclude Include="src\entities\item\Item.h" />
     <ClInclude Include="src\manager\EventManager.h" />
     <ClInclude Include="src\manager\GameManager.h" />
@@ -165,6 +170,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="src\manager\Singleton.h" />
+    <Content Include="src\structs\EffectData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

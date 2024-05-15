@@ -5,6 +5,9 @@
 class Accessory: public Equipment
 {
 public:
-    
+    Accessory(): Equipment(EquipmentType::accessory)
+    {
+        
+    }
 };
 #endif
