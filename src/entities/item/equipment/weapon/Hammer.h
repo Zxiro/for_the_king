@@ -20,11 +20,12 @@ public:
             pAttackEffect + 15,
             mAttackEffect,
             pDefenseEffect,
-            mDefenseEffect
+            mDefenseEffect,
+            focusEffect
         };
     }
 
-    std::string getName() override
+    static std::string getName() override
     {
         return "Hammer";
     };

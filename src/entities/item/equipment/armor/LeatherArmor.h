@@ -15,11 +15,12 @@ public:
             pAttackEffect,
             mAttackEffect,
             pDefenseEffect + 5,
-            mDefenseEffect
+            mDefenseEffect,
+            focusEffect
         };
     }
 
-    std::string getName() override
+    static std::string getName() override
     {
         return "LeatherArmor";
     };

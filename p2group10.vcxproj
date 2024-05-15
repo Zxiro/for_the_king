@@ -150,6 +150,9 @@
     <ClInclude Include="src\entities\entity\Store.h" />
     <ClInclude Include="src\entities\entity\Tent.h" />
     <ClInclude Include="src\entities\item\equipment\accessory\Accessory.h" />
+    <ClInclude Include="src\entities\item\equipment\accessory\Bracelet.h" />
+    <ClInclude Include="src\entities\item\equipment\accessory\HolyGrail.h" />
+    <ClInclude Include="src\entities\item\equipment\accessory\Shoes.h" />
     <ClInclude Include="src\entities\item\equipment\armor\Armor.h" />
     <ClInclude Include="src\entities\item\equipment\armor\LaurelWreath.h" />
     <ClInclude Include="src\entities\item\equipment\armor\LeatherArmor.h" />

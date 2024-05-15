@@ -15,11 +15,12 @@ public:
             pAttackEffect,
             mAttackEffect,
             pDefenseEffect,
-            mDefenseEffect * 1.1 //TODO: 最終乘算
+            mDefenseEffect * 1.1, //TODO: 最終乘算
+            focusEffect
         };
     }
 
-    std::string getName() override
+    static std::string getName() override
     {
         return "LaurelWreath";
     };

@@ -1,20 +1,20 @@
-#ifndef PLATE_ARMOR_H
-#define PLATE_ARMOR_H
+#ifndef ARMOR_H
+#define ARMOR_H
 #include <string>
 
-#include "Armor.h"
+#include "Accessory.h"
 
-class PlateArmor: Armor
+class Shoes: public Accessory
 {
 public:
-    virtual EffectData getEffect() const override
+    EffectData getEffect() const override
     {
         return EffectData {
-            speedEffect - 10,
+            speedEffect + 5,
             hitRateEffect,
             pAttackEffect,
             mAttackEffect,
-            pDefenseEffect + 20,
+            pDefenseEffect,
             mDefenseEffect,
             focusEffect
         };
@@ -22,8 +22,7 @@ public:
 
     static std::string getName() override
     {
-        return "PlateArmor";
+        return "Shoes";
     };
 };
-
 #endif

@@ -1,34 +1,28 @@
-#ifndef WOODENSWORD_H
-#define WOODENSWORD_H
+#ifndef BRACELET_H
+#define BRACELET_H
 #include <string>
 
-#include "Weapon.h"
+#include "Accessory.h"
 
-class WoodenSword: public Weapon
+class Bracelet: public Accessory
 {
 public:
-    WoodenSword(): Weapon(3)
-    {
-        
-    }
-
     EffectData getEffect() const override
     {
         return EffectData {
             speedEffect,
-            hitRateEffect + 10,
-            pAttackEffect + 5,
+            hitRateEffect,
+            pAttackEffect,
             mAttackEffect,
             pDefenseEffect,
             mDefenseEffect,
-            focusEffect,
+            focusEffect + 1
         };
     }
 
     static std::string getName() override
     {
-        return "WoodenSword";
+        return "Bracelet";
     };
 };
-
 #endif

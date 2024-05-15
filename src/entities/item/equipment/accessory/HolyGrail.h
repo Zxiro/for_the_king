@@ -1,29 +1,28 @@
-#ifndef ROBE_H
-#define ROBE_H
+#ifndef ARMOR_H
+#define ARMOR_H
 #include <string>
 
-#include "Armor.h"
+#include "Accessory.h"
 
-class Robe: Armor
+class HolyGrail: public Accessory
 {
 public:
-    virtual EffectData getEffect() const override
+    EffectData getEffect() const override
     {
         return EffectData {
             speedEffect,
             hitRateEffect,
             pAttackEffect,
-            mAttackEffect,
+            mAttackEffect + 30,
             pDefenseEffect,
-            mDefenseEffect + 10,
+            mDefenseEffect,
             focusEffect
         };
     }
 
     static std::string getName() override
     {
-        return "Robe";
+        return "HolyGrail";
     };
 };
-
 #endif

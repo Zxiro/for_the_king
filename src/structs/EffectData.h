@@ -7,5 +7,6 @@ struct EffectData {
     int mAttackEffect = 0;
     int pDefenseEffect = 0;
     int mDefenseEffect = 0;
-}
+    int focusEffect = 0;
+};
 #endif

@@ -15,11 +15,12 @@ public:
             pAttackEffect + 10,
             mAttackEffect,
             pDefenseEffect,
-            mDefenseEffect
+            mDefenseEffect,
+            focusEffect
         };
     }
 
-    std::string getName() override
+    static std::string getName() override
     {
         return "WoodenSword";
     };
