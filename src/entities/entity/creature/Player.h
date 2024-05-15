@@ -63,12 +63,12 @@ public:
         this->movementCount += 1;
     }
 
-    virtual int getVitality() const
+    virtual double getVitality() const override
     {
         return vitality;
     }
 
-    virtual int getFocus() const
+    virtual double getFocus() const override
     {
         int effect = EffectUtil<Weapon>::getFocus(this->weapon);
         effect += EffectUtil<Armor>::getFocus(this->armor);
@@ -76,7 +76,7 @@ public:
         return focus + effect;
     }
 
-    virtual int getSpeed() const
+    virtual double getSpeed() const override
     {
         int effect = EffectUtil<Weapon>::getSpeed(this->weapon);
         effect += EffectUtil<Armor>::getSpeed(this->armor);
@@ -84,7 +84,7 @@ public:
         return speed + effect;
     }
 
-    virtual int getHitRate() const
+    virtual double getHitRate() const override
     {
         int effect = EffectUtil<Weapon>::getHitRate(this->weapon);
         effect += EffectUtil<Armor>::getHitRate(this->armor);
@@ -92,15 +92,15 @@ public:
         return hitRate + effect;
     }
 
-    virtual int getPAttack() const
+    virtual double getPAttack() const override
     {
         int effect = EffectUtil<Weapon>::getPAttack(this->weapon);
         effect += EffectUtil<Armor>::getPAttack(this->armor);
         effect += EffectUtil<Accessory>::getPAttack(this->accessory);
-        return pAttack + Equipment;
+        return pAttack + effect;
     }
 
-    virtual int getMAttack() const
+    virtual double getMAttack() const override
     {
         int effect = EffectUtil<Weapon>::getMAttack(this->weapon);
         effect += EffectUtil<Armor>::getMAttack(this->armor);
@@ -108,15 +108,27 @@ public:
         return mAttack + effect;
     }
 
-    virtual int getPDefense() const
+    virtual double getPDefense() const override
     {
         int effect = EffectUtil<Weapon>::getPDefense(this->weapon);
         effect += EffectUtil<Armor>::getPDefense(this->armor);
-        effect += EffectUtil<Accessory>::getPDefense(this->accessory);
-        return pDefense + effect;
+
+        int accessoryPDefense = EffectUtil<Accessory>::getPDefense(this->accessory);
+        int res = 0;
+        // 特別處理，寫法很差，目前想不到更好的寫法
+        if (Accessory::getName() != "LaurelWreath")
+        {
+            effect += accessoryPDefense;
+            res = pDefense + effect + accessoryPDefense;
+        } else
+        {
+            res = (pDefense + effect) * accessoryPDefense;
+        }
+        
+        return res;
     }
 
-    virtual int getMDefense() const
+    virtual double getMDefense() const override
     {
         int effect = EffectUtil<Weapon>::getMDefense(this->weapon);
         effect += EffectUtil<Armor>::getMDefense(this->armor);
