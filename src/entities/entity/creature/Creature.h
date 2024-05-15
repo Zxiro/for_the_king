@@ -23,42 +23,42 @@ public :
         movementCount = 0;
     }
 
-    int getVitality() const
+    virtual int getVitality() const
     {
         return vitality;
     }
 
-    int getFocus() const
+    virtual int getFocus() const
     {
         return focus;
     }
 
-    int getSpeed() const
+    virtual int getSpeed() const
     {
         return speed;
     }
 
-    int getHitRate() const
+    virtual int getHitRate() const
     {
         return hitRate;
     }
 
-    int getPAttack() const
+    virtual int getPAttack() const
     {
         return pAttack;
     }
 
-    int getMAttack() const
+    virtual int getMAttack() const
     {
         return mAttack;
     }
 
-    int getPDefense() const
+    virtual int getPDefense() const
     {
         return pDefense;
     }
 
-    int getMDefense() const
+    virtual int getMDefense() const
     {
         return mDefense;
     }

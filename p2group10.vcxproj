@@ -175,6 +175,12 @@
     <ClInclude Include="src\structs\Position.h" />
     <ClInclude Include="src\Test.h" />
     <ClInclude Include="src\manager\UIManager.h" />
+    <ClInclude Include="src\exception\ItemNotEnoughException.h" />
+    <ClInclude Include="src\exception\MoneyNotEnoughException.h" />
+    <ClInclude Include="src\exception\UnImplementException.h" />
+    <ClInclude Include="src\enum\EquipmentType.h" />
+    <ClInclude Include="src\utils\EffectUtil.h" />
+    <ClInclude Include="src\utils\VectorUtil.h" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="src\manager\Singleton.h" />
