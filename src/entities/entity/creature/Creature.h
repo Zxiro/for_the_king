@@ -19,8 +19,6 @@ public :
         mAttack = rand() % (15 - 5 + 1) + 5;
         pDefense = rand() % (20 - 0 + 1) + 0;
         mDefense = rand() % (20 - 0 + 1) + 0;
-
-        movementCount = 0;
     }
 
     virtual double getVitality() const

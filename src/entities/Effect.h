@@ -10,13 +10,13 @@ public:
     {
         throw UnImplementException();
     }
-private:
-    int speedEffect = 0;
-    int hitRateEffect = 0;
-    int pAttackEffect = 0;
-    int mAttackEffect = 0;
-    int pDefenseEffect = 0;
-    int mDefenseEffect = 0;
-    int focusEffect = 0;
+public:
+    double speedEffect = 0;
+    double hitRateEffect = 0;
+    double pAttackEffect = 0;
+    double mAttackEffect = 0;
+    double pDefenseEffect = 0;
+    double mDefenseEffect = 0;
+    double focusEffect = 0;
 };
 #endif

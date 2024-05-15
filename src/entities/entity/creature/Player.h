@@ -60,7 +60,6 @@ public:
 
     void rollDice() const
     {
-        this->movementCount += 1;
     }
 
     virtual double getVitality() const override
@@ -116,7 +115,7 @@ public:
         int accessoryPDefense = EffectUtil<Accessory>::getPDefense(this->accessory);
         int res = 0;
         // 特別處理，寫法很差，目前想不到更好的寫法
-        if (Accessory::getName() != "LaurelWreath")
+        if (accessory->getName() != "LaurelWreath")
         {
             effect += accessoryPDefense;
             res = pDefense + effect + accessoryPDefense;
