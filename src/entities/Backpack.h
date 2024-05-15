@@ -4,7 +4,7 @@
 #include <map>
 #include <string>
 
-#include "../item/Item.h"
+#include "../exception/ItemNotEnoughException.h"
 
 class Backpack
 {
@@ -50,7 +50,9 @@ public:
 
 	void removeItem(const std::string &itemName)
 	{
-		// TODO: 防止物品出現負數
+		if (items[itemName] == 0)
+			throw ItemNotEnoughException();
+			
 		items[itemName] -= 1;
 	}
 
