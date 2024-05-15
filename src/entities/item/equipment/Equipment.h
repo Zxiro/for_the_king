@@ -5,7 +5,6 @@
 
 #include "../Item.h"
 #include "../../../enum/EquipmentType.h"
-#include "../exception/UnImplementException.h"
 
 class Equipment: public Item
 {

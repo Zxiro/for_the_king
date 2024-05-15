@@ -13,19 +13,20 @@
 class Player : public Creature
 {
 public:
-    void wearWeapon(const Weapon& weapon) const
+    Player(const Position& _position, const std::string& _display) : Creature(_position, _display) {}
+    void wearWeapon(Weapon* weapon)
     {
-        *this->weapon = weapon;
+        this->weapon = weapon;
     }
 
-    void wearArmor(const Armor& armor) const
+    void wearArmor(Armor* armor)
     {
-        *this->armor = armor;
+        this->armor = armor;
     }
 
-    void wearAccessory(const Accessory& accessory) const
+    void wearAccessory(Accessory* accessory)
     {
-        *this->accessory = accessory;
+        this->accessory = accessory;
     }
 
     void removeWeapon()
@@ -136,9 +137,9 @@ public:
     }
 
 private:
-    Weapon* weapon;
-    Armor* armor;
-    Accessory* accessory;
+    Weapon* weapon = nullptr;
+    Armor* armor = nullptr;
+    Accessory* accessory = nullptr;
     int movementCount = 0;
 };
 
