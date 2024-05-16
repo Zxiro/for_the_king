@@ -1,58 +1,68 @@
 #ifndef CREATURE_H
 #define CREATURE_H
 
+#include <ctime>
+
 #include "../Entity.h"
 
 class Creature : public Entity
 {
 public :
-    int getHp() const
+    Creature(const Position &_position, const std::string &_display): Entity(_position, _display)
     {
-        return hp;
+        srand( time(NULL));
+        vitality = rand() % (44 - 30 + 1) + 30;
+        focus = 3;
+        speed = rand() % (55 - 30 + 1) + 30;
+        hitRate = rand() % (60 - 40 + 1) + 40;
+        pAttack = rand() % (15 - 5 + 1) + 5;
+        mAttack = rand() % (15 - 5 + 1) + 5;
+        pDefense = rand() % (20 - 0 + 1) + 0;
+        mDefense = rand() % (20 - 0 + 1) + 0;
     }
 
-    int getVitality() const
+    virtual double getVitality() const
     {
         return vitality;
     }
 
-    int getFocus() const
+    virtual double getFocus() const
     {
         return focus;
     }
 
-    int getSpeed() const
+    virtual double getSpeed() const
     {
         return speed;
     }
 
-    int getHitRate() const
+    virtual double getHitRate() const
     {
         return hitRate;
     }
 
-    int getPAttack() const
+    virtual double getPAttack() const
     {
         return pAttack;
     }
 
-    int getMAttack() const
+    virtual double getMAttack() const
     {
         return mAttack;
     }
 
-    int getPDefense() const
+    virtual double getPDefense() const
     {
         return pDefense;
     }
 
-    int getMDefense() const
+    virtual double getMDefense() const
     {
         return mDefense;
     }
+    
 
 protected:
-    int hp;
     int vitality;
     int focus;
     int speed;

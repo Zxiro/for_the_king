@@ -144,22 +144,47 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\entities\Backpack.h" />
+    <ClInclude Include="src\entities\Effect.h" />
     <ClInclude Include="src\entities\entity\creature\Creature.h" />
     <ClInclude Include="src\entities\entity\Entity.h" />
     <ClInclude Include="src\entities\entity\Store.h" />
     <ClInclude Include="src\entities\entity\Tent.h" />
-    <ClInclude Include="src\item\Item.h" />
+    <ClInclude Include="src\entities\item\equipment\accessory\Accessory.h" />
+    <ClInclude Include="src\entities\item\equipment\accessory\Bracelet.h" />
+    <ClInclude Include="src\entities\item\equipment\accessory\HolyGrail.h" />
+    <ClInclude Include="src\entities\item\equipment\accessory\Shoes.h" />
+    <ClInclude Include="src\entities\item\equipment\armor\Armor.h" />
+    <ClInclude Include="src\entities\item\equipment\armor\LaurelWreath.h" />
+    <ClInclude Include="src\entities\item\equipment\armor\LeatherArmor.h" />
+    <ClInclude Include="src\entities\item\equipment\armor\PlateArmor.h" />
+    <ClInclude Include="src\entities\item\equipment\armor\Robe.h" />
+    <ClInclude Include="src\entities\item\equipment\armor\WoodenShield.h" />
+    <ClInclude Include="src\entities\item\equipment\Equipment.h" />
+    <ClInclude Include="src\entities\item\equipment\weapon\GiantHammer.h" />
+    <ClInclude Include="src\entities\item\equipment\weapon\Hammer.h" />
+    <ClInclude Include="src\entities\item\equipment\weapon\MagicWand.h" />
+    <ClInclude Include="src\entities\item\equipment\weapon\RitualSword.h" />
+    <ClInclude Include="src\entities\item\equipment\weapon\Weapon.h" />
+    <ClInclude Include="src\entities\item\equipment\weapon\WoodenSword.h" />
+    <ClInclude Include="src\entities\item\Item.h" />
     <ClInclude Include="src\manager\EventManager.h" />
     <ClInclude Include="src\manager\GameManager.h" />
     <ClInclude Include="src\manager\GameStateManager.h" />
     <ClInclude Include="src\entities\entity\creature\Player.h" />
     <ClInclude Include="src\entities\entity\RandomEvent.h" />
+    <ClInclude Include="src\manager\Singleton.h" />
+    <ClInclude Include="src\structs\EffectData.h" />
     <ClInclude Include="src\structs\Position.h" />
     <ClInclude Include="src\Test.h" />
     <ClInclude Include="src\manager\UIManager.h" />
-  </ItemGroup>
-  <ItemGroup>
+    <ClInclude Include="src\exception\ItemNotEnoughException.h" />
+    <ClInclude Include="src\exception\MoneyNotEnoughException.h" />
+    <ClInclude Include="src\exception\UnImplementException.h" />
+    <ClInclude Include="src\enum\EquipmentType.h" />
+    <ClInclude Include="src\utils\EffectUtil.h" />
+    <ClInclude Include="src\utils\VectorUtil.h" />
     <Content Include="src\manager\Singleton.h" />
+    <Content Include="src\structs\EffectData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
