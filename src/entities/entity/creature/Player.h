@@ -136,11 +136,48 @@ public:
         return mDefense + effect;
     }
 
+    bool isPassable() const override {
+        return true;  // Players are passable
+    }
+
+    void modifyMoney(int amount) {
+        money += amount;
+    }
+
+    int getMoney() const {
+        return money;
+    }
+
+    void setVitality(int vit) {
+        vitality = vit;
+    }
+
+    void setAttack(int atk) {
+        pAttack = atk;
+    }
+
+    void setPDefense(int def) {
+        pDefense = def;
+    }
+
+    void setMDefense(int def) {
+        mDefense = def;
+    }
+
+    void setPosition(const Position& pos) {
+        position = pos;
+    }
+
+    Position getPosition() const {
+        return position;
+    }
+
 private:
     Weapon* weapon = nullptr;
     Armor* armor = nullptr;
     Accessory* accessory = nullptr;
     int movementCount = 0;
+    int money;
 };
 
 #endif

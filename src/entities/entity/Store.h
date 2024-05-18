@@ -13,7 +13,8 @@
 class Store : public Entity
 {
 public:
-	Store(const Position &_position)
+	Store() : Entity(Position{ 0, 0 }, "$") {}
+	Store(const Position& _position)
 		: Entity(_position, "$")
 	{
 		items = {
@@ -52,6 +53,10 @@ public:
 	std::map<std::string, int> getItems() const
 	{
 		return items;
+	}
+
+	bool isPassable() const override {
+		return true;
 	}
 
 protected:
