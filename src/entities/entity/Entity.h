@@ -2,32 +2,27 @@
 #define ENTITY_H
 
 #include <string>
-
 #include "../../structs/Position.h"
 
 class Entity
 {
 public:
-    Entity(const Position &_position, const std::string &_display)
-    {
-        position = _position;
-        display = _display;
-    }
+    Entity(const Position& _position, const std::string& _display)
+        : position(_position), display(_display) {}
 
-    Position getPosition() const
-    {
+    Position getPosition() const {
         return position;
     }
 
-    std::string getDisplay()
-    {
+    std::string getDisplay() const {
         return display;
     }
 
+    virtual bool isPassable() const = 0;
+
 protected:
     Position position;
-    // The string displayed on the map
     std::string display;
 };
 
-#endif
+#endif // ENTITY_H
