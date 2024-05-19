@@ -1,5 +1,5 @@
-#ifndef ROBE_H
-#define ROBE_H
+#ifndef LAURELWREATH_H
+#define LAURELWREATH_H
 #include <string>
 
 #include "Armor.h"
