@@ -19,6 +19,8 @@
 #include "manager/GameMap.h"
 #include "entities/item/equipment/weapon/WoodenSword.h"
 #include "entities/item/equipment/weapon/Hammer.h"
+#include "entities/item/equipment/armor/LeatherArmor.h"
+#include "entities/item/equipment/accessory/HolyGrail.h"
 #include "entities/Backpack.h"
 #include "entities/entity/Store.h"
 #include "manager/GameManager.h"
@@ -47,16 +49,16 @@ class Test
 	void createPlayers() {
 		for (int index = 0; index < 3; ++index) {
 			Player player(Position{ index + 1, 2 }, "Player" + std::to_string(index + 1));
-			
-			Sleep(1200);
-			Hammer hammer;
-			player.wearWeapon(&hammer);
-			
-			//PlateArmor platearmor;
-			//player.wearArmor(&platearmor);
 
-			//HolyGrail holygrail;
-			//player.wearAccessory(&holygrail);
+			Sleep(1200);
+			Hammer* hammer = new Hammer();
+			player.wearWeapon(hammer);
+
+			LeatherArmor* plateArmor = new LeatherArmor();
+			player.wearArmor(plateArmor);
+
+			HolyGrail* holyGrail = new HolyGrail();
+			player.wearAccessory(holyGrail);
 
 			players.push_back(player);
 		}
@@ -72,14 +74,14 @@ class Test
 		string player_armor = (player.getArmor() == nullptr) ? "" : player.getArmor()->getName();
 		string player_accessory = (player.getAccessory() == nullptr) ? "" : player.getAccessory()->getName();
 		elements.push_back(text("Name: " + player.getDisplay()));
-		elements.push_back(text("HP: " + to_string((int)player.getVitality()) + "/" + to_string((int)player.getVitality())));
-		elements.push_back(text("Focus: " + to_string((int)player.getFocus()) + "/" + to_string((int)player.getFocus())));
-		elements.push_back(text("Physical ATK: " + to_string((int)player.getPAttack())));
-		elements.push_back(text("Physical DEF: " + to_string((int)player.getPDefense())));
-		elements.push_back(text("Magical ATK: " + to_string((int)player.getMAttack())));
-		elements.push_back(text("Magical DEF: " + to_string((int)player.getMDefense())));
-		elements.push_back(text("Speed: " + to_string((int)player.getSpeed())));
-		elements.push_back(text("HitRate: " + to_string((int)player.getHitRate())));
+		elements.push_back(text("HP: " + to_string(player.getVitality()) + "/" + to_string(player.getVitality())));
+		elements.push_back(text("Focus: " + to_string(player.getFocus()) + "/" + to_string(player.getFocus())));
+		elements.push_back(text("Physical ATK: " + to_string(player.getPAttack())));
+		elements.push_back(text("Physical DEF: " + to_string(player.getPDefense())));
+		elements.push_back(text("Magical ATK: " + to_string(player.getMAttack())));
+		elements.push_back(text("Magical DEF: " + to_string(player.getMDefense())));
+		elements.push_back(text("Speed: " + to_string(player.getSpeed())));
+		elements.push_back(text("HitRate: " + to_string(player.getHitRate())));
 		elements.push_back(text("Weapon: " + player_weapon));
 		elements.push_back(text("Armor: " + player_armor));
 		elements.push_back(text("Accessory: " + player_accessory));
@@ -247,10 +249,9 @@ class Test
 		auto bagComponent = Button("X", hide_modal);
 
 		bagComponent |= Renderer([&](Element closeButton) {
-			Backpack backpack;
-			std::map<std::string, int> backpack_items = backpack.getItems();
-
+			map<string, int> backpack_items = Singleton<GameManager>::instance()->backpack.getItems();
 			int money = Singleton<GameManager>::instance()->backpack.getMoney();
+
 			// player(RightColumn)
 			Elements playerColumn;
 			int k = 0;
@@ -309,7 +310,7 @@ class Test
 			int count = 0;
 			int i = 0;
 			for (auto& item : backpack_items) {
-				if (item.second > 1) {
+				if (item.second > 0) {
 					Elements equipButtons;
 					for (int j = 0; j < players.size(); j++)
 					{
@@ -372,9 +373,14 @@ class Test
 			}
 			if (event.is_character() && event.character() == "d") {
 				// 背包欄位移動
-				Backpack backpack;
-				std::map<std::string, int> backpack_items = backpack.getItems();
-				if (chooseBagItemIndex < (backpack_items.size() * players.size()) - 1) {
+				std::map<std::string, int> backpack_items = Singleton<GameManager>::instance()->backpack.getItems();
+				int max_length = 0;
+				for (auto& item : backpack_items) {
+					if (item.second > 0) {
+						max_length++;
+					}
+				}
+				if (chooseBagItemIndex < (max_length * players.size()) - 1) {
 					chooseBagItemIndex += 1;
 				}
 			}
@@ -385,7 +391,7 @@ class Test
 			}
 
 			if (event.is_character() && event.character() == "l") {// 右箭頭[C
-				if (chooseBagPlayerIndex < (players.size() * 3) -1) {
+				if (chooseBagPlayerIndex < (players.size() * 3) - 1) {
 					chooseBagPlayerIndex += 1;
 				}
 			}
