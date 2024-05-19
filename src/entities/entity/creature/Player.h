@@ -14,7 +14,8 @@ class Player : public Creature
 {
 public:
     Player(const Position& _position, const std::string& _display) : Creature(_position, _display) {}
-    void wearWeapon(Weapon* weapon)
+
+	void wearWeapon(Weapon* weapon)
     {
         this->weapon = weapon;
     }

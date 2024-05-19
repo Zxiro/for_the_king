@@ -1,7 +1,6 @@
 ﻿#include "Test.h"
 #include "entities/entity/creature/Player.h"
 #include "entities/item/equipment/weapon/WoodenSword.h"
-#include "manager/GameMap.h"
 #include "entities/entity/Wall.h"
 #include "entities/entity/Store.h"
 #include "entities/entity/Tent.h"

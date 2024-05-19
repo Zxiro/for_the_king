@@ -5,6 +5,7 @@
 #include <random>
 #include <windows.h>
 
+#include "utils/StringUtil.h"
 #include "ftxui/component/captured_mouse.hpp"
 #include "ftxui/component/component.hpp"
 #include <ftxui/component/mouse.hpp>
@@ -16,11 +17,13 @@
 #include <math.h>
 
 #include "entities/entity/creature/Player.h"
-#include "manager/GameMap.h"
+#include "entities/GameMap.h"
 #include "entities/item/equipment/weapon/WoodenSword.h"
 #include "entities/item/equipment/weapon/Hammer.h"
 #include "entities/Backpack.h"
 #include "entities/entity/Store.h"
+#include "entities/item/equipment/accessory/HolyGrail.h"
+#include "entities/item/equipment/armor/PlateArmor.h"
 #include "manager/GameManager.h"
 
 using namespace ftxui;
@@ -47,39 +50,35 @@ class Test
 	void createPlayers() {
 		for (int index = 0; index < 3; ++index) {
 			Player player(Position{ index + 1, 2 }, "Player" + std::to_string(index + 1));
-			
-			Sleep(1200);
-			Hammer hammer;
-			player.wearWeapon(&hammer);
-			
-			//PlateArmor platearmor;
-			//player.wearArmor(&platearmor);
 
-			//HolyGrail holygrail;
-			//player.wearAccessory(&holygrail);
+			Hammer* hammer = new Hammer();
+			player.wearWeapon(hammer);
+			
+			PlateArmor* plateArmor = new PlateArmor();
+			player.wearArmor(plateArmor);
+
+			HolyGrail* holyGrail = new HolyGrail();
+			player.wearAccessory(holyGrail);
 
 			players.push_back(player);
 		}
 	}
 
 	Element createPlayerElement(int index) {
-
 		Player player = players[index];
-		//WoodenSword weapon;
-		//player.wearWeapon(&weapon);
 		Elements elements;
 		string player_weapon = (player.getWeapon() == nullptr) ? "" : player.getWeapon()->getName();
 		string player_armor = (player.getArmor() == nullptr) ? "" : player.getArmor()->getName();
 		string player_accessory = (player.getAccessory() == nullptr) ? "" : player.getAccessory()->getName();
 		elements.push_back(text("Name: " + player.getDisplay()));
-		elements.push_back(text("HP: " + to_string((int)player.getVitality()) + "/" + to_string((int)player.getVitality())));
-		elements.push_back(text("Focus: " + to_string((int)player.getFocus()) + "/" + to_string((int)player.getFocus())));
-		elements.push_back(text("Physical ATK: " + to_string((int)player.getPAttack())));
-		elements.push_back(text("Physical DEF: " + to_string((int)player.getPDefense())));
-		elements.push_back(text("Magical ATK: " + to_string((int)player.getMAttack())));
-		elements.push_back(text("Magical DEF: " + to_string((int)player.getMDefense())));
-		elements.push_back(text("Speed: " + to_string((int)player.getSpeed())));
-		elements.push_back(text("HitRate: " + to_string((int)player.getHitRate())));
+		elements.push_back(text("HP: " + StringUtil::toStringFixed(player.getVitality(), 0) + "/" + to_string(player.getVitality())));
+		elements.push_back(text("Focus: " + to_string(player.getFocus()) + "/" + to_string(player.getFocus())));
+		elements.push_back(text("Physical ATK: " + to_string(player.getPAttack())));
+		elements.push_back(text("Physical DEF: " + to_string(player.getPDefense())));
+		elements.push_back(text("Magical ATK: " + to_string(player.getMAttack())));
+		elements.push_back(text("Magical DEF: " + to_string(player.getMDefense())));
+		elements.push_back(text("Speed: " + to_string(player.getSpeed())));
+		elements.push_back(text("HitRate: " + to_string(player.getHitRate())));
 		elements.push_back(text("Weapon: " + player_weapon));
 		elements.push_back(text("Armor: " + player_armor));
 		elements.push_back(text("Accessory: " + player_accessory));

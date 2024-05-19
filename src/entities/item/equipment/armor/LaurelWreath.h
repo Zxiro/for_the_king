@@ -4,7 +4,7 @@
 
 #include "Armor.h"
 
-class LaurelWreath : Armor
+class LaurelWreath : public Armor
 {
 public:
     virtual EffectData getEffect() const override

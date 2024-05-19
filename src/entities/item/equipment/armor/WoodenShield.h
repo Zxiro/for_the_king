@@ -4,7 +4,7 @@
 
 #include "Armor.h"
 
-class WoodenShield: Armor
+class WoodenShield: public Armor
 {
 public:
     virtual EffectData getEffect() const override
