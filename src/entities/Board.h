@@ -1,18 +1,10 @@
-#ifndef GAMEMAP_H
-#define GAMEMAP_H
-
 #include <vector>
 #include <memory>
-#include "../entities/entity/Entity.h"
-#include "../entities/entity/Wall.h"
 #include "../entities/entity/Store.h"
-#include "../entities/entity/creature/Player.h"
-#include "../entities/entity/Tent.h"
-#include "../entities/entity/RandomEvent.h"
 
-class GameMap {
+class Board {
 public:
-    GameMap(int width, int height) : width(width), height(height) {
+    Board(int width, int height) : width(width), height(height) {
         map.resize(height, std::vector<std::shared_ptr<Entity>>(width, nullptr));
     }
 
@@ -44,5 +36,3 @@ private:
     int height;
     std::vector<std::vector<std::shared_ptr<Entity>>> map;
 };
-
-#endif // GAMEMAP_H

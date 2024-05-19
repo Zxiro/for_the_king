@@ -6,14 +6,8 @@
 #include "creature/Player.h"
 #include <cstdlib>
 #include <ctime>
+#include "../enum/EventType.h";
 
-enum class EventType {
-    FoundMoney,
-    SteppedOnMine,
-    Teleport,
-    Blessed,
-    Cursed
-};
 
 class RandomEvent : public Entity {
 public:

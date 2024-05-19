@@ -1,13 +1,44 @@
 ﻿#include "Test.h"
-#include "entities/entity/creature/Player.h"
+#include "factory/EquipFactory.h"
+#include "entities/item/equipment/accessory/Bracelet.h"
+#include "entities/item/equipment/accessory/HolyGrail.h"
+#include "entities/item/equipment/accessory/Shoes.h"
+#include "entities/item/equipment/armor/LaurelWreath.h"
+#include "entities/item/equipment/armor/LeatherArmor.h"
+#include "entities/item/equipment/armor/PlateArmor.h"
+#include "entities/item/equipment/armor/Robe.h"
+#include "entities/item/equipment/armor/WoodenShield.h"
+#include "entities/item/equipment/weapon/GiantHammer.h"
+#include "entities/item/equipment/weapon/Hammer.h"
+#include "entities/item/equipment/weapon/MagicWand.h"
+#include "entities/item/equipment/weapon/RitualSword.h"
 #include "entities/item/equipment/weapon/WoodenSword.h"
-#include "entities/entity/Wall.h"
-#include "entities/entity/Store.h"
 #include "entities/entity/Tent.h"
-#include "entities/entity/RandomEvent.h"
+
+void registerInstance()
+{
+    EquipFactory::instance().registerClass<Bracelet>();
+    EquipFactory::instance().registerClass<HolyGrail>();
+    EquipFactory::instance().registerClass<Shoes>();
+    EquipFactory::instance().registerClass<LaurelWreath>();
+    EquipFactory::instance().registerClass<LeatherArmor>();
+    EquipFactory::instance().registerClass<PlateArmor>();
+    EquipFactory::instance().registerClass<Robe>();
+    EquipFactory::instance().registerClass<WoodenShield>();
+    EquipFactory::instance().registerClass<GiantHammer>();
+    EquipFactory::instance().registerClass<Hammer>();
+    EquipFactory::instance().registerClass<MagicWand>();
+    EquipFactory::instance().registerClass<RitualSword>();
+    EquipFactory::instance().registerClass<WoodenSword>();
+}
 
 int main()
 {
+    registerInstance();
+
+    //工廠模式 use type create instance
+    //Equipment* equip = EquipFactory::instance().createInstance(typeid(Hammer));
+
     //srand(static_cast<unsigned int>(time(0)));
     //
 	//Player player(Position{ 1,2 }, "Player1");

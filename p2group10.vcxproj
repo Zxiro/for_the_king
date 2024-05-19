@@ -146,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\entities\Backpack.h" />
+    <ClInclude Include="src\entities\Board.h" />
     <ClInclude Include="src\entities\Effect.h" />
     <ClInclude Include="src\entities\entity\creature\Creature.h" />
     <ClInclude Include="src\entities\entity\Entity.h" />
@@ -170,9 +171,11 @@
     <ClInclude Include="src\entities\item\equipment\weapon\Weapon.h" />
     <ClInclude Include="src\entities\item\equipment\weapon\WoodenSword.h" />
     <ClInclude Include="src\entities\item\Item.h" />
+    <ClInclude Include="src\enum\EventType.h" />
+    <ClInclude Include="src\exception\ElementNotFoundException.h" />
+    <ClInclude Include="src\factory\EquipFactory.h" />
     <ClInclude Include="src\manager\EventManager.h" />
     <ClInclude Include="src\manager\GameManager.h" />
-    <ClInclude Include="src\entities\GameMap.h" />
     <ClInclude Include="src\manager\GameStateManager.h" />
     <ClInclude Include="src\entities\entity\creature\Player.h" />
     <ClInclude Include="src\entities\entity\RandomEvent.h" />
@@ -188,6 +191,7 @@
     <ClInclude Include="src\utils\EffectUtil.h" />
     <ClInclude Include="src\ui\handler\KeyboardInputHandler.h" />
     <ClInclude Include="src\ui\handler\KeyboardInputUI.h" />
+    <ClInclude Include="src\utils\MapUtil.h" />
     <ClInclude Include="src\utils\StringUtil.h" />
     <ClInclude Include="src\utils\VectorUtil.h" />
     <Content Include="src\manager\Singleton.h" />

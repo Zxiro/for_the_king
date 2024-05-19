@@ -17,7 +17,6 @@
 #include <math.h>
 
 #include "entities/entity/creature/Player.h"
-#include "entities/GameMap.h"
 #include "entities/item/equipment/weapon/WoodenSword.h"
 #include "entities/item/equipment/weapon/Hammer.h"
 #include "entities/item/equipment/armor/LeatherArmor.h"
@@ -39,7 +38,7 @@ Store store(storePosition);
 
 std::vector<Player> players;
 
-std::map<std::string, int> store_items = store.getItems();
+std::map<std::type_index, int> store_items = store.getItems();
 int chooseStoreIndex = 0;
 int chooseBagItemIndex = 0;
 int chooseBagPlayerIndex = 0;
@@ -199,9 +198,9 @@ class Test
 	}
 
 	Component printMapUI() {
-		GameManager manager;
+		//GameManager manager;
 		auto gameMap = generateMap();
-		manager.map = gameMap;
+		//manager.map = gameMap;
 		Elements map_elements;
 		for (const auto& row : gameMap) {
 			Elements row_elements;
