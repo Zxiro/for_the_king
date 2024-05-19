@@ -44,6 +44,21 @@ public:
         this->accessory = nullptr;
     }
 
+    Weapon* getWeapon()
+    {
+        return this->weapon;
+    }
+
+    Armor* getArmor()
+    {
+        return this->armor;
+    }
+
+    Accessory* getAccessory()
+    {
+        return this->accessory;
+    }
+
     int getPriority() const
     {
         return std::floor((this->movementCount + 1) / this->speed) * 100;
@@ -116,13 +131,13 @@ public:
         int accessoryPDefense = EffectUtil<Accessory>::getPDefense(this->accessory);
         int res = 0;
         // 特別處理，寫法很差，目前想不到更好的寫法
-        if (accessory->getName() != "LaurelWreath")
+        if (accessory != nullptr && accessory->getName() == "LaurelWreath")
+        {
+            res = (pDefense + effect) * accessoryPDefense;
+        } else
         {
             effect += accessoryPDefense;
             res = pDefense + effect + accessoryPDefense;
-        } else
-        {
-            res = (pDefense + effect) * accessoryPDefense;
         }
         
         return res;
