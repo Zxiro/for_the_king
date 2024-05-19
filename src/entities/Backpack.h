@@ -17,7 +17,7 @@ public:
 			{"Hammer", 0},
 			{"GiantHammer", 0},
 			{"MagicWand", 0},
-			{"RitualWand", 0},
+			{"RitualSword", 0},
 			{"WoodenShield", 0},
 			{"PlateArmor", 0},
 			{"LeatherArmor", 0},
@@ -52,7 +52,7 @@ public:
 	{
 		if (items[itemName] == 0)
 			throw ItemNotEnoughException();
-			
+
 		items[itemName] -= 1;
 	}
 
