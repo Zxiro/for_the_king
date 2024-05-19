@@ -3,8 +3,23 @@
 
 #include <map>
 #include <string>
+#include <typeindex>
 
 #include "Entity.h"
+#include "../item/equipment/accessory/Bracelet.h"
+#include "../item/equipment/accessory/HolyGrail.h"
+#include "../item/equipment/accessory/Shoes.h"
+#include "../item/equipment/armor/LaurelWreath.h"
+#include "../item/equipment/armor/LeatherArmor.h"
+#include "../item/equipment/armor/PlateArmor.h"
+#include "../item/equipment/armor/Robe.h"
+#include "../item/equipment/armor/WoodenShield.h"
+#include "../item/equipment/weapon/GiantHammer.h"
+#include "../item/equipment/weapon/Hammer.h"
+#include "../item/equipment/weapon/MagicWand.h"
+#include "../item/equipment/weapon/RitualSword.h"
+#include "../item/equipment/weapon/WoodenSword.h"
+#include "../entity/Tent.h"
 #include "../../exception/MoneyNotEnoughException.h"
 #include "../../manager/GameManager.h"
 #include "../../manager/Singleton.h"
@@ -18,30 +33,36 @@ public:
 		: Entity(_position, "$")
 	{
 		items = {
-			{"WoodenSword", 100},
-			{"Hammer", 100},
-			{"GiantHammer", 100},
-			{"MagicWand", 100},
-			{"RitualWand", 100},
-			{"WoodenShield", 100},
-			{"PlateArmor", 100},
-			{"LeatherArmor", 100},
-			{"Robe", 100},
-			{"LaurelWreath", 100},
-			{"HolyGrail", 100},
-			{"Shoes", 100},
-			{"Bracelet", 100},
-			{"GodsBeard", 100},
-			{"GoldenRoot", 100},
-			{"TeleportScroll", 100},
-			{"Tent", 100}
+			{typeid(WoodenSword), 100},
+			{typeid(Hammer), 100},
+			{typeid(GiantHammer), 100},
+			{typeid(MagicWand), 100},
+			{typeid(RitualSword), 100},
+			{typeid(WoodenShield), 100},
+			{typeid(PlateArmor), 100},
+			{typeid(LeatherArmor), 100},
+			{typeid(Robe), 100},
+			{typeid(LaurelWreath), 100},
+			{typeid(HolyGrail), 100},
+			{typeid(Shoes), 100},
+			{typeid(Bracelet), 100},
+			/*{typeid(GodsBeard), 100},
+			{typeid(GoldenRoot), 100},
+			{typeid(TeleportScroll), 100},*/
+			{typeid(Tent), 100}
 		};
 	};
 
 	void buyItem(const std::string &itemName)
 	{
 		int money = Singleton<GameManager>::instance()->backpack.getMoney();
-		int price = items[itemName];
+
+		auto item = MapUtil<std::type_index, int>::findFirst(this->items, [&](const std::type_index& key)
+			{
+				return key.name() == itemName;
+			});
+
+		int price = item.second;
 
 		if (money < price)
 			throw MoneyNotEnoughException();
@@ -50,7 +71,7 @@ public:
 		Singleton<GameManager>::instance()->backpack.addItem(itemName);
 	}
 
-	std::map<std::string, int> getItems() const
+	std::map<std::type_index, int> getItems() const
 	{
 		return items;
 	}
@@ -60,7 +81,7 @@ public:
 	}
 
 protected:
-	std::map<std::string, int> items;
+	std::map<std::type_index, int> items;
 };
 
 #endif

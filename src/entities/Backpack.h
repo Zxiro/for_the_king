@@ -3,8 +3,20 @@
 
 #include <map>
 #include <string>
+#include <typeindex>
 
 #include "../exception/ItemNotEnoughException.h"
+#include "entity/Tent.h"
+#include "item/equipment/accessory/Bracelet.h"
+#include "item/equipment/accessory/Shoes.h"
+#include "item/equipment/armor/LaurelWreath.h"
+#include "item/equipment/armor/PlateArmor.h"
+#include "item/equipment/armor/Robe.h"
+#include "item/equipment/armor/WoodenShield.h"
+#include "item/equipment/weapon/GiantHammer.h"
+#include "item/equipment/weapon/MagicWand.h"
+#include "item/equipment/weapon/RitualSword.h"
+#include "../utils/MapUtil.h"
 
 class Backpack
 {
@@ -13,23 +25,23 @@ public:
 		: money(600)
 	{
 		items = {
-			{"WoodenSword", 0},
-			{"Hammer", 0},
-			{"GiantHammer", 0},
-			{"MagicWand", 0},
-			{"RitualWand", 0},
-			{"WoodenShield", 0},
-			{"PlateArmor", 0},
-			{"LeatherArmor", 0},
-			{"Robe", 0},
-			{"LaurelWreath", 0},
-			{"HolyGrail", 0},
-			{"Shoes", 0},
-			{"Bracelet", 0},
-			{"GodsBeard", 0},
-			{"GoldenRoot", 0},
-			{"TeleportScroll", 0},
-			{"Tent", 0}
+			{typeid(WoodenSword), 100},
+			{typeid(Hammer), 100},
+			{typeid(GiantHammer), 100},
+			{typeid(MagicWand), 100},
+			{typeid(RitualSword), 100},
+			{typeid(WoodenShield), 100},
+			{typeid(PlateArmor), 100},
+			{typeid(LeatherArmor), 100},
+			{typeid(Robe), 100},
+			{typeid(LaurelWreath), 100},
+			{typeid(HolyGrail), 100},
+			{typeid(Shoes), 100},
+			{typeid(Bracelet), 100},
+			/*{typeid(GodsBeard), 100},
+			{typeid(GoldenRoot), 100},
+			{typeid(TeleportScroll), 100},*/
+			{typeid(Tent), 100}
 		};
 	};
 
@@ -45,25 +57,33 @@ public:
 
 	void addItem(const std::string &itemName)
 	{
-		items[itemName] += 1;
+		auto item = MapUtil<std::type_index, int>::findFirst(this->items, [&](const std::type_index& key)
+			{
+				return key.name() == itemName;
+			});
+		items[item.first] += 1;
 	}
 
 	void removeItem(const std::string &itemName)
 	{
-		if (items[itemName] == 0)
+		auto item = MapUtil<std::type_index, int>::findFirst(this->items, [&](const std::type_index& key)
+			{
+				return key.name() == itemName;
+			});
+		if (item.second == 0)
 			throw ItemNotEnoughException();
-			
-		items[itemName] -= 1;
+
+		items[item.first] -= 1;
 	}
 
-	std::map<std::string, int> getItems() const
+	std::map<std::type_index, int> getItems() const
 	{
 		return items;
 	}
 
 private:
 	int money;
-	std::map<std::string, int> items;
+	std::map<std::type_index, int> items;
 };
 
 #endif

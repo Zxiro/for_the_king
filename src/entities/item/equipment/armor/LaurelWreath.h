@@ -1,10 +1,10 @@
-#ifndef ROBE_H
-#define ROBE_H
+#ifndef LAURELWREATH_H
+#define LAURELWREATH_H
 #include <string>
 
 #include "Armor.h"
 
-class LaurelWreath : Armor
+class LaurelWreath : public Armor
 {
 public:
     virtual EffectData getEffect() const override

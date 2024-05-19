@@ -4,7 +4,7 @@
 
 #include "Armor.h"
 
-class Robe: Armor
+class Robe: public Armor
 {
 public:
     virtual EffectData getEffect() const override

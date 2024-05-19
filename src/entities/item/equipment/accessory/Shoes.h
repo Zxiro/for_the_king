@@ -1,5 +1,5 @@
-#ifndef ARMOR_H
-#define ARMOR_H
+#ifndef SHOES_H
+#define SHOES_H
 #include <string>
 
 #include "Accessory.h"

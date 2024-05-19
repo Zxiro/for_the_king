@@ -14,7 +14,8 @@ class Player : public Creature
 {
 public:
     Player(const Position& _position, const std::string& _display) : Creature(_position, _display) {}
-    void wearWeapon(Weapon* weapon)
+
+	void wearWeapon(Weapon* weapon)
     {
         this->weapon = weapon;
     }
@@ -42,6 +43,21 @@ public:
     void removeAccessory()
     {
         this->accessory = nullptr;
+    }
+
+    Weapon* getWeapon()
+    {
+        return this->weapon;
+    }
+
+    Armor* getArmor()
+    {
+        return this->armor;
+    }
+
+    Accessory* getAccessory()
+    {
+        return this->accessory;
     }
 
     int getPriority() const
@@ -116,13 +132,13 @@ public:
         int accessoryPDefense = EffectUtil<Accessory>::getPDefense(this->accessory);
         int res = 0;
         // 特別處理，寫法很差，目前想不到更好的寫法
-        if (accessory->getName() != "LaurelWreath")
+        if (accessory != nullptr && accessory->getName() == "LaurelWreath")
+        {
+            res = (pDefense + effect) * accessoryPDefense;
+        } else
         {
             effect += accessoryPDefense;
             res = pDefense + effect + accessoryPDefense;
-        } else
-        {
-            res = (pDefense + effect) * accessoryPDefense;
         }
         
         return res;

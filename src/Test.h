@@ -5,6 +5,7 @@
 #include <random>
 #include <windows.h>
 
+#include "utils/StringUtil.h"
 #include "ftxui/component/captured_mouse.hpp"
 #include "ftxui/component/component.hpp"
 #include <ftxui/component/mouse.hpp>
@@ -13,111 +14,108 @@
 #include "ftxui/component/component_base.hpp"
 #include "ftxui/component/screen_interactive.hpp"
 #include "ftxui/dom/elements.hpp"
+#include <math.h>
+
+#include "entities/entity/creature/Player.h"
+#include "entities/item/equipment/weapon/WoodenSword.h"
+#include "entities/item/equipment/weapon/Hammer.h"
+#include "entities/item/equipment/armor/LeatherArmor.h"
+#include "entities/item/equipment/accessory/HolyGrail.h"
+#include "entities/Backpack.h"
+#include "entities/entity/Store.h"
+#include "entities/item/equipment/accessory/HolyGrail.h"
+#include "entities/item/equipment/armor/PlateArmor.h"
+#include "manager/GameManager.h"
 
 using namespace ftxui;
 using namespace std;
 
-struct PlayerInfoType {
-	string name;
-	string hp;
-	string max_hp;
-	string focus;
-	string max_focus;
-	string physical_atk;
-	string physical_def;
-	string magical_atk;
-	string magical_def;
-	string speed;
-	string hitrate;
-	string weapon;
-	string armor;
-	string accessory;
-	vector<string> buff;
-};
+auto button_style = ButtonOption::Animated();
 
-class Test {
+
+Position storePosition = { 0,0 };
+Store store(storePosition);
+
+std::vector<Player> players;
+
+std::map<std::type_index, int> store_items = store.getItems();
+int chooseStoreIndex = 0;
+int chooseBagItemIndex = 0;
+int chooseBagPlayerIndex = 0;
+
+
+
+class Test
+{
 	// Player
-	int randomInt(int min, int max) {
-		random_device rd;
-		mt19937 gen(rd()); // 使用 Mersenne Twister 引擎
-		uniform_int_distribution<int> dis(min, max);
-		return dis(gen);
-	}
+	void createPlayers() {
+		for (int index = 0; index < 3; ++index) {
+			Player player(Position{ index + 1, 2 }, "Player" + std::to_string(index + 1));
 
-	vector<PlayerInfoType> generatePlayerInfo() {
-		vector<PlayerInfoType>players;
-		for (int i = 0; i < 3; i++)
-		{
-			int hp = randomInt(30, 44);
-			players.push_back({
-				"player" + to_string(i + 1),
-				to_string(hp),
-				to_string(hp),
-				to_string(3),
-				to_string(3),
-				to_string(randomInt(5, 14)),
-				to_string(randomInt(0, 19)),
-				to_string(randomInt(5, 14)),
-				to_string(randomInt(0, 19)),
-				to_string(randomInt(30, 54)),
-				to_string(randomInt(40, 59)),
-				"",
-				"",
-				"",
-				{"buff1", "buff2", "buff3"} // buff
-				});
+			Hammer* hammer = new Hammer();
+			player.wearWeapon(hammer);
+			
+			PlateArmor* plateArmor = new PlateArmor();
+			player.wearArmor(plateArmor);
+
+			HolyGrail* holyGrail = new HolyGrail();
+			player.wearAccessory(holyGrail);
+
+			players.push_back(player);
 		}
-		return players;
 	}
 
-	Element createPlayerElement(const PlayerInfoType& playerInfo) {
+	Element createPlayerElement(int index) {
+		Player player = players[index];
 		Elements elements;
-		elements.push_back(text("Name: " + playerInfo.name));
-		elements.push_back(text("HP: " + playerInfo.hp + "/" + playerInfo.max_hp));
-		elements.push_back(text("Focus: " + playerInfo.focus + "/" + playerInfo.max_focus));
-		elements.push_back(text("Physical ATK: " + playerInfo.physical_atk));
-		elements.push_back(text("Physical DEF: " + playerInfo.physical_def));
-		elements.push_back(text("Magical ATK: " + playerInfo.magical_atk));
-		elements.push_back(text("Magical DEF: " + playerInfo.magical_def));
-		elements.push_back(text("Speed: " + playerInfo.speed));
-		elements.push_back(text("HitRate: " + playerInfo.hitrate));
-		elements.push_back(text("Weapon: " + playerInfo.weapon));
-		elements.push_back(text("Armor: " + playerInfo.armor));
-		elements.push_back(text("Accessory: " + playerInfo.accessory));
+		string player_weapon = (player.getWeapon() == nullptr) ? "" : player.getWeapon()->getName();
+		string player_armor = (player.getArmor() == nullptr) ? "" : player.getArmor()->getName();
+		string player_accessory = (player.getAccessory() == nullptr) ? "" : player.getAccessory()->getName();
+		elements.push_back(text("Name: " + player.getDisplay()));
+		elements.push_back(text("HP: " + StringUtil::toStringFixed(player.getVitality(), 0) + "/" + to_string(player.getVitality())));
+		elements.push_back(text("Focus: " + to_string(player.getFocus()) + "/" + to_string(player.getFocus())));
+		elements.push_back(text("Physical ATK: " + to_string(player.getPAttack())));
+		elements.push_back(text("Physical DEF: " + to_string(player.getPDefense())));
+		elements.push_back(text("Magical ATK: " + to_string(player.getMAttack())));
+		elements.push_back(text("Magical DEF: " + to_string(player.getMDefense())));
+		elements.push_back(text("Speed: " + to_string(player.getSpeed())));
+		elements.push_back(text("HitRate: " + to_string(player.getHitRate())));
+		elements.push_back(text("Weapon: " + player_weapon));
+		elements.push_back(text("Armor: " + player_armor));
+		elements.push_back(text("Accessory: " + player_accessory));
 		std::string buffs = "Buff: ";
-		for (const auto& buff : playerInfo.buff) {
-			buffs += buff + ", ";
-		}
-		if (!playerInfo.buff.empty()) {
-			buffs.pop_back();
-			buffs.pop_back();
-		}
+		//for (const auto& buff : playerInfo.buff) {
+		//	buffs += buff + ", ";
+		//}
+		//if (!playerInfo.buff.empty()) {
+		//	buffs.pop_back();
+		//	buffs.pop_back();
+		//}
 		elements.push_back(text(buffs));
 
 		return vbox(move(elements));
 	}
 
 	Component printPlayerRowUI() {
-		int chooseIndex = 0;
-		std::vector<PlayerInfoType> playerInfos = generatePlayerInfo();
-		Elements players;
-		for (size_t i = 0; i < playerInfos.size(); ++i) {
+		int chooseIndex = 0;// 還沒寫遊戲狀態 所以暫時用假選擇
+		Elements playersElements;
+		for (int i = 0; i < 3; ++i) {
 			if (chooseIndex == i) {
-				players.push_back(createPlayerElement(playerInfos[i]) | borderStyled(LIGHT, Color::Green) | flex);
+				playersElements.push_back(createPlayerElement(i) | borderStyled(LIGHT, Color::Green) | flex);
 			}
 			else {
-				players.push_back(createPlayerElement(playerInfos[i]) | border | flex);
+				playersElements.push_back(createPlayerElement(i) | border | flex);
 			}
 		}
 
-		return Renderer([players = move(players)]{
-			return hbox(move(players));
+		return Renderer([playersElements = move(playersElements)]{
+			return hbox(playersElements);
 			});
 	}
 
 	// Sidebar
 	Component printSidebarUI() {
-		// fake data
+		// fake data(因為遊戲狀態還沒好)
 		int turn = 1;
 		string playerName = "Player1";
 		int total_action_point = 8;
@@ -140,7 +138,7 @@ class Test {
 				vbox({
 					text("Turn: " + to_string(turn)),
 					text("PlayerName: " + playerName),
-					hbox(move(action_elements)),
+					hbox(action_elements),
 				}) | flex,
 				window(
 					text("Helper") | center,
@@ -160,7 +158,8 @@ class Test {
 	}
 
 	// Map
-	vector<vector<string>> generateFakeMap() {
+	vector<vector<string>> generateMap() {
+		// GameMap gameMap(140, 50);
 		vector<vector<string>> fake_map(140, vector<string>(140, "."));
 
 		random_device rd;
@@ -199,9 +198,11 @@ class Test {
 	}
 
 	Component printMapUI() {
-		vector<vector<string>> fake_map = generateFakeMap();
+		//GameManager manager;
+		auto gameMap = generateMap();
+		//manager.map = gameMap;
 		Elements map_elements;
-		for (const auto& row : fake_map) {
+		for (const auto& row : gameMap) {
 			Elements row_elements;
 			for (const auto& cell : row) {
 				Color ui_color = Color::Default;
@@ -242,42 +243,330 @@ class Test {
 		return container;
 	}
 
-	Component ModalComponent(std::function<void()> do_nothing,
-		std::function<void()> hide_modal) {
-		auto component = Container::Vertical({
-			Button("Do nothing", do_nothing),
-			Button("Quit modal", hide_modal),
-			});
-		component |= Renderer([&](Element inner) {
+	Component BagModal(std::function<void()> hide_modal) {
+		auto bagComponent = Button("X", hide_modal);
+
+		bagComponent |= Renderer([&](Element closeButton) {
+			map<string, int> backpack_items = Singleton<GameManager>::instance()->backpack.getItems();
+			int money = Singleton<GameManager>::instance()->backpack.getMoney();
+
+			// player(RightColumn)
+			Elements playerColumn;
+			int k = 0;
+			for (auto& playerInfo : players)
+			{
+				string player_weapon = (playerInfo.getWeapon() == nullptr) ? "" : playerInfo.getWeapon()->getName();
+				string player_armor = (playerInfo.getArmor() == nullptr) ? "" : playerInfo.getArmor()->getName();
+				string player_accessory = (playerInfo.getAccessory() == nullptr) ? "" : playerInfo.getAccessory()->getName();
+
+				Elements takeOffButtons;
+				for (int l = 0; l < 3; l++)
+				{
+					Element takeOffButton;
+					if (chooseBagPlayerIndex == ((k * 3) + l)) {
+					}
+					else {
+						takeOffButton = text("Take off") | bgcolor(Color::GrayDark) | size(WIDTH, EQUAL, 6);
+					}
+					takeOffButtons.push_back(takeOffButton);
+				}
+				auto WeaponStyle = (chooseBagPlayerIndex == (k * 3) + 0) ? bgcolor(Color::Red) : bgcolor(Color::GrayDark);
+				auto ArmorStyle = (chooseBagPlayerIndex == (k * 3) + 1) ? bgcolor(Color::Red) : bgcolor(Color::GrayDark);
+				auto AccessoryStyle = (chooseBagPlayerIndex == (k * 3) + 2) ? bgcolor(Color::Red) : bgcolor(Color::GrayDark);
+
+				playerColumn.push_back(
+					vbox({
+						vbox({
+						  text("Name: " + playerInfo.getDisplay()),
+						  separator()
+						}),
+						hbox({
+							vbox({
+								text("Weapon"),
+								text(player_weapon),
+								text("Take off") | WeaponStyle | size(WIDTH, EQUAL, 6)
+							}) | flex,
+							vbox({
+								text("Armor"),
+								text(player_armor),
+								text("Take off") | ArmorStyle | size(WIDTH, EQUAL, 6)
+							}) | flex,
+							vbox({
+								text("Accessory"),
+								text(player_accessory),
+								text("Take off") | AccessoryStyle | size(WIDTH, EQUAL, 6)
+								}) | flex,
+						}) | flex,
+						}) | flex | border
+				);
+				k++;
+			}
+
+			// items(LeftColumn)
+			vector<Elements> grid_items;
+			Elements backpack_row;
+			int count = 0;
+			int i = 0;
+			for (auto& item : backpack_items) {
+				if (item.second > 0) {
+					Elements equipButtons;
+					for (int j = 0; j < players.size(); j++)
+					{
+						Element equipButton;
+						if (chooseBagItemIndex == ((i * 3) + j)) {
+							equipButton = text("Equip" + players[j].getDisplay()) | bgcolor(Color::Green) | size(WIDTH, EQUAL, 10);
+						}
+						else {
+							equipButton = text("Equip" + players[j].getDisplay()) | bgcolor(Color::GrayDark) | size(WIDTH, EQUAL, 10);
+						}
+						equipButtons.push_back(equipButton);
+					}
+
+					backpack_row.push_back(vbox({
+						text(item.first),
+						text("amount: " + to_string(item.second)),
+						vbox(equipButtons)
+						}) | border | size(WIDTH, GREATER_THAN, 20));
+					count++;
+					if (count == 4) {
+						grid_items.push_back(backpack_row);
+						backpack_row.clear();
+						count = 0;
+					}
+					i++;
+				}
+			}
+			if (!backpack_row.empty()) {
+				grid_items.push_back(backpack_row);
+			}
+
 			return vbox({
-					   text("Modal component "),
-					   separator(),
-					   inner,
-				})
-				| size(WIDTH, GREATER_THAN, 30)
+			  hbox({
+				hbox({
+				  text("Bag") | vcenter | flex,
+				}) | flex,
+				closeButton
+			  }),
+			  separator(),
+			  text("Do not take off your equipment during combat") | hcenter,
+			  text("money: " + to_string(money)) | hcenter,
+			  separator(),
+			  hbox({
+				gridbox(grid_items) | size(WIDTH, EQUAL, 80),
+				separator() | size(HEIGHT, GREATER_THAN, 150),
+				vbox({
+					  playerColumn | flex
+				 }) | size(WIDTH, EQUAL, 70)
+			   })
+				}) | size(WIDTH, GREATER_THAN, 150)
+				| size(HEIGHT, GREATER_THAN, 150)
 				| border;
 			});
-		return component;
+		bagComponent |= CatchEvent([&](Event event) {
+			if (event.is_character() && event.character() == "a") {
+				// 背包欄位移動
+				if (chooseBagItemIndex > 0) {
+					chooseBagItemIndex -= 1;
+				}
+			}
+			if (event.is_character() && event.character() == "d") {
+				// 背包欄位移動
+				std::map<std::string, int> backpack_items = Singleton<GameManager>::instance()->backpack.getItems();
+				int max_length = 0;
+				for (auto& item : backpack_items) {
+					if (item.second > 0) {
+						max_length++;
+					}
+				}
+				if (chooseBagItemIndex < (max_length * players.size()) - 1) {
+					chooseBagItemIndex += 1;
+				}
+			}
+			if (event.is_character() && event.character() == "j") {// 左箭頭[D
+				if (chooseBagPlayerIndex > 0) {
+					chooseBagPlayerIndex -= 1;
+				}
+			}
+
+			if (event.is_character() && event.character() == "l") {// 右箭頭[C
+				if (chooseBagPlayerIndex < (players.size() * 3) - 1) {
+					chooseBagPlayerIndex += 1;
+				}
+			}
+			if (event.is_character() && event.character() == " ") {
+				// 裝備
+			}
+			if (event.is_character() && event.character() == "u") {
+				// 卸下裝備
+				int typeIndex = chooseBagPlayerIndex % 3;
+				int playerIndex = chooseBagPlayerIndex / 3;
+				if (typeIndex == 0) { // weapon
+					if (players[playerIndex].getWeapon() != nullptr) {
+						players[playerIndex].removeWeapon();
+					}
+				}
+				else if (typeIndex == 1) { // armor
+					if (players[playerIndex].getArmor() != nullptr) {
+						players[playerIndex].removeArmor();
+					}
+				}
+				else if (typeIndex == 2) { // accessory
+					if (players[playerIndex].getAccessory() != nullptr) {
+						players[playerIndex].removeAccessory();
+					}
+				}
+			}
+			return false;
+			});
+
+		return bagComponent;
 	}
 
-	public:
-		void printUI() {
-			ScreenInteractive screen = ScreenInteractive::Fullscreen();
-			int sidebar_size = 50;
-			int player_row_size = 15;
+	Component StoreModal(std::function<void()> hide_modal,
+		std::function<void()> buyItem
+	) {
+		auto storeComponent = Container::Vertical({
+			Button("X", hide_modal, button_style)
+			});
 
-			Component container = printMapUI();
-			Component player_row = printPlayerRowUI();
-			Component sidebar = printSidebarUI();
+		storeComponent |= Renderer([&](Element closeButton) {
+			int money = Singleton<GameManager>::instance()->backpack.getMoney();
+			// items
+			vector<Elements> grid_items;
+			Elements store_row;
+			int count = 0;
+			int i = 0;
+			for (auto& item : store_items) {
+				Element buyButton;
+				if (chooseStoreIndex == i) {
+					buyButton = text("Buy") | bgcolor(Color::Green) | size(WIDTH, EQUAL, 2);
+				}
+				else {
+					buyButton = text("Buy") | bgcolor(Color::GrayDark) | size(WIDTH, EQUAL, 2);
+				}
+				store_row.push_back(vbox({
+					text(item.first),
+					text("amount: " + to_string(item.second)),
+					buyButton
+					}) | border | size(WIDTH, GREATER_THAN, 20));
+				count++;
+				if (count == 4) {
+					grid_items.push_back(store_row);
+					store_row.clear();
+					count = 0;
+				}
+				i++;
+			}
+			if (!store_row.empty()) {
+				grid_items.push_back(store_row);
+			}
 
-			container = ResizableSplitRight(sidebar, container, &sidebar_size);
-			container = ResizableSplitBottom(player_row, container, &player_row_size);
+			return vbox({
+					   hbox({
+							hbox({
+							text("Store") | vcenter | flex,
+							}) | flex,
+							closeButton,
+						}),
+					   separator(),
+					   text("money: " + to_string(money)) | hcenter,
+					   separator(),
+					   hbox({
+							gridbox(grid_items) | flex,
+						  })
+				})
+				| size(WIDTH, GREATER_THAN, 80)
+				| size(HEIGHT, GREATER_THAN, 100)
+				| border;
+			});
+		storeComponent |= CatchEvent([&](Event event) {
+			if (event.is_character() && event.character() == "w") {
+			}
+			if (event.is_character() && event.character() == "a") {
+				if (chooseStoreIndex > 0) {
+					chooseStoreIndex -= 1;
+				}
+			}
+			if (event.is_character() && event.character() == "s") {
+			}
+			if (event.is_character() && event.character() == "d") {
+				if (chooseStoreIndex < store_items.size() - 1) {
+					chooseStoreIndex += 1;
+				}
+			}
+			if (event.is_character() && event.character() == " ") {
+				// 購買
+				int money = Singleton<GameManager>::instance()->backpack.getMoney();
+				auto it = store_items.begin();
+				std::advance(it, chooseStoreIndex);
+				if (it != store_items.end()) {
+					string itemName = it->first;
+					if (money >= it->second) {
+						store.buyItem(itemName);
+					}
+				}
+			}
+			return false;
+			});
+		return storeComponent;
+	}
 
-			Component renderer = Renderer(container, [&] {
-				return container->Render() | border;
-				});
-			screen.Loop(renderer);
-		}
+
+public:
+	Test() {
+		createPlayers();
+	}
+	void printUI() {
+		ScreenInteractive screen = ScreenInteractive::Fullscreen();
+		int sidebar_size = 50;
+		int player_row_size = 15;
+
+		// Bag
+		bool bag_modal_shown = false;
+		auto bag_show_modal = [&] { bag_modal_shown = true; };
+		auto bag_hide_modal = [&] { bag_modal_shown = false; };
+
+		auto bag_modal_component = BagModal(bag_hide_modal);
+
+		// Store
+		auto BuyItem = [&]() {
+			// 購買物品 int money
+		};
+		bool store_modal_shown = false;
+		auto store_show_modal = [&] { store_modal_shown = true; };
+		auto store_hide_modal = [&] { store_modal_shown = false; };
+		auto store_modal_component = StoreModal(store_hide_modal, BuyItem);
+
+		// Area
+		Component container = printMapUI();
+		Component player_row = printPlayerRowUI();
+		Component sidebar = printSidebarUI();
+		Sleep(3000);
+		container = ResizableSplitRight(sidebar, container, &sidebar_size);
+		container = ResizableSplitBottom(player_row, container, &player_row_size);
+		container |= Modal(bag_modal_component, &bag_modal_shown);
+		container |= Modal(store_modal_component, &store_modal_shown);
+
+		// Get KeyBoard Event
+		container |= CatchEvent([&](Event event) {
+			if (event.is_character() && event.character() == "i") {
+				if (!store_modal_shown) {
+					bag_show_modal();
+				}
+			}
+			if (event.is_character() && event.character() == "e") {
+				if (!bag_modal_shown) {
+					store_show_modal();
+				}
+			}
+			return false;
+			});
+
+		Component renderer = Renderer(container, [&] {
+			return container->Render() | border;
+			});
+		screen.Loop(renderer);
+	}
 };
 
 #endif

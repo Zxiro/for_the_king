@@ -4,7 +4,7 @@
 
 #include "Armor.h"
 
-class WoodenSword: Armor
+class WoodenShield: public Armor
 {
 public:
     virtual EffectData getEffect() const override
@@ -22,7 +22,7 @@ public:
 
     std::string getName() const override
     {
-        return "WoodenSword";
+        return "WoodenShield";
     };
 };
 
