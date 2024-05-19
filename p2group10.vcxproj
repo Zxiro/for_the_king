@@ -141,8 +141,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\utils\KeyboardInputHandler.cpp" />
-    <ClCompile Include="src\utils\KeyboardInputUI.cpp" />
+    <ClCompile Include="src\ui\handler\KeyboardInputHandler.cpp" />
+    <ClCompile Include="src\ui\handler\KeyboardInputUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\entities\Backpack.h" />
@@ -172,7 +172,7 @@
     <ClInclude Include="src\entities\item\Item.h" />
     <ClInclude Include="src\manager\EventManager.h" />
     <ClInclude Include="src\manager\GameManager.h" />
-    <ClInclude Include="src\manager\GameMap.h" />
+    <ClInclude Include="src\entities\GameMap.h" />
     <ClInclude Include="src\manager\GameStateManager.h" />
     <ClInclude Include="src\entities\entity\creature\Player.h" />
     <ClInclude Include="src\entities\entity\RandomEvent.h" />
@@ -186,8 +186,9 @@
     <ClInclude Include="src\exception\UnImplementException.h" />
     <ClInclude Include="src\enum\EquipmentType.h" />
     <ClInclude Include="src\utils\EffectUtil.h" />
-    <ClInclude Include="src\utils\KeyboardInputHandler.h" />
-    <ClInclude Include="src\utils\KeyboardInputUI.h" />
+    <ClInclude Include="src\ui\handler\KeyboardInputHandler.h" />
+    <ClInclude Include="src\ui\handler\KeyboardInputUI.h" />
+    <ClInclude Include="src\utils\StringUtil.h" />
     <ClInclude Include="src\utils\VectorUtil.h" />
     <Content Include="src\manager\Singleton.h" />
     <Content Include="src\structs\EffectData.h" />

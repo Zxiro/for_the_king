@@ -23,7 +23,7 @@ public:
     std::string getName() const override
     {
         return "PlateArmor";
-    };
+    }
 };
 
 #endif

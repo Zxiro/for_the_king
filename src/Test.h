@@ -5,6 +5,7 @@
 #include <random>
 #include <windows.h>
 
+#include "utils/StringUtil.h"
 #include "ftxui/component/captured_mouse.hpp"
 #include "ftxui/component/component.hpp"
 #include <ftxui/component/mouse.hpp>
@@ -16,13 +17,15 @@
 #include <math.h>
 
 #include "entities/entity/creature/Player.h"
-#include "manager/GameMap.h"
+#include "entities/GameMap.h"
 #include "entities/item/equipment/weapon/WoodenSword.h"
 #include "entities/item/equipment/weapon/Hammer.h"
 #include "entities/item/equipment/armor/LeatherArmor.h"
 #include "entities/item/equipment/accessory/HolyGrail.h"
 #include "entities/Backpack.h"
 #include "entities/entity/Store.h"
+#include "entities/item/equipment/accessory/HolyGrail.h"
+#include "entities/item/equipment/armor/PlateArmor.h"
 #include "manager/GameManager.h"
 
 using namespace ftxui;
@@ -50,11 +53,10 @@ class Test
 		for (int index = 0; index < 3; ++index) {
 			Player player(Position{ index + 1, 2 }, "Player" + std::to_string(index + 1));
 
-			Sleep(1200);
 			Hammer* hammer = new Hammer();
 			player.wearWeapon(hammer);
-
-			LeatherArmor* plateArmor = new LeatherArmor();
+			
+			PlateArmor* plateArmor = new PlateArmor();
 			player.wearArmor(plateArmor);
 
 			HolyGrail* holyGrail = new HolyGrail();
@@ -65,16 +67,13 @@ class Test
 	}
 
 	Element createPlayerElement(int index) {
-
 		Player player = players[index];
-		//WoodenSword weapon;
-		//player.wearWeapon(&weapon);
 		Elements elements;
 		string player_weapon = (player.getWeapon() == nullptr) ? "" : player.getWeapon()->getName();
 		string player_armor = (player.getArmor() == nullptr) ? "" : player.getArmor()->getName();
 		string player_accessory = (player.getAccessory() == nullptr) ? "" : player.getAccessory()->getName();
 		elements.push_back(text("Name: " + player.getDisplay()));
-		elements.push_back(text("HP: " + to_string(player.getVitality()) + "/" + to_string(player.getVitality())));
+		elements.push_back(text("HP: " + StringUtil::toStringFixed(player.getVitality(), 0) + "/" + to_string(player.getVitality())));
 		elements.push_back(text("Focus: " + to_string(player.getFocus()) + "/" + to_string(player.getFocus())));
 		elements.push_back(text("Physical ATK: " + to_string(player.getPAttack())));
 		elements.push_back(text("Physical DEF: " + to_string(player.getPDefense())));
