@@ -24,6 +24,9 @@
     <ClCompile Include="src\ui\handler\KeyboardInputUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\exception\FocusNotEnoughException.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Test.h">
@@ -171,6 +174,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\exception\ElementNotFoundException.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\enum\InteractiveType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

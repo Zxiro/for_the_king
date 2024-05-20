@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\exception\FocusNotEnoughException.h" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ui\handler\KeyboardInputHandler.cpp" />
     <ClCompile Include="src\ui\handler\KeyboardInputUI.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="src\entities\item\equipment\weapon\WoodenSword.h" />
     <ClInclude Include="src\entities\item\Item.h" />
     <ClInclude Include="src\enum\EventType.h" />
+    <ClInclude Include="src\enum\InteractiveType.h" />
     <ClInclude Include="src\exception\ElementNotFoundException.h" />
     <ClInclude Include="src\factory\EquipFactory.h" />
     <ClInclude Include="src\manager\EventManager.h" />

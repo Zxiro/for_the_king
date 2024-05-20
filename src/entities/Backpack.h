@@ -17,6 +17,10 @@
 #include "item/equipment/weapon/MagicWand.h"
 #include "item/equipment/weapon/RitualSword.h"
 #include "../utils/MapUtil.h"
+#include "item/equipment/accessory/HolyGrail.h"
+#include "item/equipment/armor/LeatherArmor.h"
+#include "item/equipment/weapon/Hammer.h"
+#include "item/equipment/weapon/WoodenSword.h"
 
 class Backpack
 {
@@ -53,6 +57,11 @@ public:
 	void setMoney(int _money)
 	{
 		money = _money;
+	}
+
+	void addMoney(int money)
+	{
+		this->money += money;
 	}
 
 	void addItem(const std::string &itemName)
