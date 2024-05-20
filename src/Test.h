@@ -247,8 +247,9 @@ class Test
 		auto bagComponent = Button("X", hide_modal);
 
 		bagComponent |= Renderer([&](Element closeButton) {
-			map<string, int> backpack_items = Singleton<GameManager>::instance()->backpack.getItems();
-			int money = Singleton<GameManager>::instance()->backpack.getMoney();
+			//map<string, int> backpack_items = Singleton<GameManager>::instance()->backpack.getItems();
+			map<string, int> backpack_items = {};
+			int money = Singleton<GameManager>::instance().backpack->getMoney();
 
 			// player(RightColumn)
 			Elements playerColumn;
@@ -371,7 +372,9 @@ class Test
 			}
 			if (event.is_character() && event.character() == "d") {
 				// 背包欄位移動
-				std::map<std::string, int> backpack_items = Singleton<GameManager>::instance()->backpack.getItems();
+				//std::map<std::string, int> backpack_items = Singleton<GameManager>::instance()->backpack.getItems();
+				std::map<std::string, int> backpack_items = {};
+
 				int max_length = 0;
 				for (auto& item : backpack_items) {
 					if (item.second > 0) {
@@ -430,7 +433,7 @@ class Test
 			});
 
 		storeComponent |= Renderer([&](Element closeButton) {
-			int money = Singleton<GameManager>::instance()->backpack.getMoney();
+			int money = Singleton<GameManager>::instance().backpack->getMoney();
 			// items
 			vector<Elements> grid_items;
 			Elements store_row;
@@ -445,7 +448,7 @@ class Test
 					buyButton = text("Buy") | bgcolor(Color::GrayDark) | size(WIDTH, EQUAL, 2);
 				}
 				store_row.push_back(vbox({
-					text(item.first),
+					//text(item.first),
 					text("amount: " + to_string(item.second)),
 					buyButton
 					}) | border | size(WIDTH, GREATER_THAN, 20));
@@ -496,11 +499,11 @@ class Test
 			}
 			if (event.is_character() && event.character() == " ") {
 				// 購買
-				int money = Singleton<GameManager>::instance()->backpack.getMoney();
+				int money = Singleton<GameManager>::instance().backpack->getMoney();
 				auto it = store_items.begin();
 				std::advance(it, chooseStoreIndex);
 				if (it != store_items.end()) {
-					string itemName = it->first;
+					string itemName = it->first.name();
 					if (money >= it->second) {
 						store.buyItem(itemName);
 					}

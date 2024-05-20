@@ -39,6 +39,9 @@ int main()
     //工廠模式 use type create instance
     //Equipment* equip = EquipFactory::instance().createInstance(typeid(Hammer));
 
+    int money = Singleton<GameManager>::instance().backpack->getMoney();
+    std::cout << money << std::endl;
+
     //srand(static_cast<unsigned int>(time(0)));
     //
 	//Player player(Position{ 1,2 }, "Player1");

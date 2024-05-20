@@ -55,7 +55,7 @@ public:
 
 	void buyItem(const std::string &itemName)
 	{
-		int money = Singleton<GameManager>::instance()->backpack.getMoney();
+		int money = Singleton<GameManager>::instance().backpack->getMoney();
 
 		auto item = MapUtil<std::type_index, int>::findFirst(this->items, [&](const std::type_index& key)
 			{
@@ -67,8 +67,8 @@ public:
 		if (money < price)
 			throw MoneyNotEnoughException();
 
-		Singleton<GameManager>::instance()->backpack.setMoney(money - price);
-		Singleton<GameManager>::instance()->backpack.addItem(itemName);
+		Singleton<GameManager>::instance().backpack->setMoney(money - price);
+		Singleton<GameManager>::instance().backpack->addItem(itemName);
 	}
 
 	std::map<std::type_index, int> getItems() const

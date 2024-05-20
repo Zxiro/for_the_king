@@ -12,15 +12,23 @@
 
 class GameManager
 {
-public: 
+public:
+	GameManager()
+	{
+		players = {};
+		enemies = {};
+		worldEvent = {};
+		map = new Board(120, 120);
+		backpack = new Backpack();
+	}
 	std::vector<Player> players;
 	std::vector<Player> enemies;
 	std::vector<RandomEvent> worldEvent;
-	Board map;
-	Backpack backpack;
-	EventManager eventManager;
-	UIManager uiManager;
-	GameStateManager gameStateManager;
+	Board* map;
+	Backpack* backpack;
+	//UIManager uiManager;
+	//GameStateManager gameStateManager;
+	//EventManager eventManager;
 	//BattleManager battleManager;
 
 protected:
