@@ -247,8 +247,7 @@ class Test
 		auto bagComponent = Button("X", hide_modal);
 
 		bagComponent |= Renderer([&](Element closeButton) {
-			//map<string, int> backpack_items = Singleton<GameManager>::instance()->backpack.getItems();
-			map<string, int> backpack_items = {};
+			map<type_index, int> backpack_items = Singleton<GameManager>::instance().backpack->getItems();
 			int money = Singleton<GameManager>::instance().backpack->getMoney();
 
 			// player(RightColumn)
@@ -324,7 +323,7 @@ class Test
 					}
 
 					backpack_row.push_back(vbox({
-						text(item.first),
+						text(item.first.name()),
 						text("amount: " + to_string(item.second)),
 						vbox(equipButtons)
 						}) | border | size(WIDTH, GREATER_THAN, 20));
@@ -372,8 +371,7 @@ class Test
 			}
 			if (event.is_character() && event.character() == "d") {
 				// 背包欄位移動
-				//std::map<std::string, int> backpack_items = Singleton<GameManager>::instance()->backpack.getItems();
-				std::map<std::string, int> backpack_items = {};
+				map<type_index, int> backpack_items = Singleton<GameManager>::instance().backpack->getItems();
 
 				int max_length = 0;
 				for (auto& item : backpack_items) {
