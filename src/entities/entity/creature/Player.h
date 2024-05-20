@@ -59,6 +59,8 @@ public:
 
 			successPoint += 1;
 		}
+
+		return successPoint;
 	}
 
 	// 角色移動後需要呼叫此function來記錄移動次數
