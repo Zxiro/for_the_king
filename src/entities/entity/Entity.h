@@ -14,6 +14,10 @@ public:
         return position;
     }
 
+    void setPosition(const Position& pos) {
+        position = pos;
+    }
+
     std::string getDisplay() const {
         return display;
     }
