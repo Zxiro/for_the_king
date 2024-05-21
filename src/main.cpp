@@ -15,6 +15,11 @@
 #include "entities/item/equipment/weapon/WoodenSword.h"
 #include "entities/entity/Tent.h"
 
+
+#include "ui/MainScreen.h"
+
+#include <windows.h>
+
 void registerInstance()
 {
     EquipFactory::instance().registerClass<Bracelet>();
@@ -32,15 +37,36 @@ void registerInstance()
     EquipFactory::instance().registerClass<WoodenSword>();
 }
 
+void initialPlayers() {
+    for (int index = 0; index < 3; ++index) {
+        Player player(Position{ index + 1, 2 }, "Player" + std::to_string(index + 1));
+        // Sleep(1000); 防止資料重疊
+        Hammer* hammer = new Hammer();
+        player.wearWeapon(hammer);
+
+        PlateArmor* plateArmor = new PlateArmor();
+        player.wearArmor(plateArmor);
+
+        HolyGrail* holyGrail = new HolyGrail();
+        player.wearAccessory(holyGrail);
+
+        Singleton<GameManager>::instance().players.push_back(player);
+    }
+}
+
 int main()
 {
     registerInstance();
+    initialPlayers();
 
+    MainScreen mainScreen;
+    mainScreen.printUI();
+    // auto test = Singleton<GameManager>::instance().players;
     //工廠模式 use type create instance
     //Equipment* equip = EquipFactory::instance().createInstance(typeid(Hammer));
 
-    int money = Singleton<GameManager>::instance().backpack->getMoney();
-    std::cout << money << std::endl;
+    //int money = Singleton<GameManager>::instance().backpack->getMoney();
+    //std::cout << money << std::endl;
 
     //srand(static_cast<unsigned int>(time(0)));
     //
@@ -50,8 +76,8 @@ int main()
 	//player.wearWeapon(&weapon);
 	//player.getPAttack();
 
-	Test test;
-	test.printUI();
+	//Test test;
+	//test.printUI();
 	//GameMap gameMap(140, 50);
     //
     //gameMap.addEntity(std::make_shared<Wall>(Position{ 10, 10 }), 10, 10);

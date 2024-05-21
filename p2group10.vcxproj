@@ -188,6 +188,12 @@
     <ClInclude Include="src\exception\MoneyNotEnoughException.h" />
     <ClInclude Include="src\exception\UnImplementException.h" />
     <ClInclude Include="src\enum\EquipmentType.h" />
+    <ClInclude Include="src\ui\BagModal.h" />
+    <ClInclude Include="src\ui\GameColumn.h" />
+    <ClInclude Include="src\ui\MainScreen.h" />
+    <ClInclude Include="src\ui\MapArea.h" />
+    <ClInclude Include="src\ui\PlayerRow.h" />
+    <ClInclude Include="src\ui\StoreModal.h" />
     <ClInclude Include="src\utils\EffectUtil.h" />
     <ClInclude Include="src\ui\handler\KeyboardInputHandler.h" />
     <ClInclude Include="src\ui\handler\KeyboardInputUI.h" />

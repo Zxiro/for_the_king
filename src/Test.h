@@ -51,7 +51,7 @@ class Test
 	void createPlayers() {
 		for (int index = 0; index < 3; ++index) {
 			Player player(Position{ index + 1, 2 }, "Player" + std::to_string(index + 1));
-
+			// Sleep(1000); 防止資料重疊
 			Hammer* hammer = new Hammer();
 			player.wearWeapon(hammer);
 			
@@ -114,7 +114,7 @@ class Test
 	}
 
 	// Sidebar
-	Component printSidebarUI() {
+	Component printGameColumnUI() {
 		// fake data(因為遊戲狀態還沒好)
 		int turn = 1;
 		string playerName = "Player1";
@@ -541,7 +541,7 @@ public:
 		// Area
 		Component container = printMapUI();
 		Component player_row = printPlayerRowUI();
-		Component sidebar = printSidebarUI();
+		Component sidebar = printGameColumnUI();
 		Sleep(3000);
 		container = ResizableSplitRight(sidebar, container, &sidebar_size);
 		container = ResizableSplitBottom(player_row, container, &player_row_size);
