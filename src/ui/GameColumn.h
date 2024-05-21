@@ -43,11 +43,15 @@ public:
 					text("PlayerName: " + playerName),
 					hbox(action_elements),
 				}) | flex,
+				hbox({
+					text("'Y' Key use Focus"),
+					text("'R' Key use Roll"),
+				}),
 				window(
 					text("Helper") | center,
 					vbox(
 						text("Arrow Key: Move"),
-						text("'P' Kye: End Turn"),
+						text("'P' Key: End Turn"),
 						text("'I' Key: Open Bag"),
 						hbox({
 							text(" ") | bgcolor(Color::RGB(110, 110, 114)),text(":Wall, "),

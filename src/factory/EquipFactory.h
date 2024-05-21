@@ -18,8 +18,8 @@ public:
         classMap[typeid(T)] = []() -> Equipment* { return new T(); };
     }
 
-    Equipment* createInstance(const std::type_info& type) const {
-        auto it = classMap.find(std::type_index(type));
+    Equipment* createInstance(const std::type_index& type) const {
+        auto it = classMap.find(type);
         if (it != classMap.end()) {
             return it->second();
         }

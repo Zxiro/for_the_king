@@ -1,4 +1,4 @@
-#ifndef BAGMODAL_H
+﻿#ifndef BAGMODAL_H
 #define BAGMODAL_H
 
 #include "../entities/Backpack.h"
@@ -6,7 +6,6 @@
 class BagModal
 {
 private:
-	vector<Player> players;
 	Backpack* backpack;
 	int chooseBagPlayerIndex;
 	int chooseBagItemIndex;
@@ -15,7 +14,6 @@ public:
 		chooseBagPlayerIndex = 0;
 		chooseBagItemIndex = 0;
 		this->backpack = Singleton<GameManager>::instance().backpack;
-		this->players = Singleton<GameManager>::instance().players;
 	}
 	Component modalUI(std::function<void()> hide_modal) {
 		auto bagComponent = Button("X", hide_modal);
@@ -23,13 +21,17 @@ public:
 		bagComponent |= Renderer([&](Element closeButton) {
 			map<type_index, int> backpack_items = Singleton<GameManager>::instance().backpack->getItems();
 			int money = Singleton<GameManager>::instance().backpack->getMoney();
-
-			// player(RightColumn)
+			vector<Player> players = Singleton<GameManager>::instance().players;
+			
+			// 玩家資訊
 			Elements playerColumn;
 			int k = 0;
 			for (auto& playerInfo : players)
 			{
-				string player_weapon = (playerInfo.getWeapon() == nullptr) ? "" : playerInfo.getWeapon()->getName();
+				string player_weapon = "";
+				if(playerInfo.getWeapon() != nullptr) {
+					playerInfo.getWeapon()->getName();
+				}
 				string player_armor = (playerInfo.getArmor() == nullptr) ? "" : playerInfo.getArmor()->getName();
 				string player_accessory = (playerInfo.getAccessory() == nullptr) ? "" : playerInfo.getAccessory()->getName();
 
@@ -76,7 +78,7 @@ public:
 				k++;
 			}
 
-			// items(LeftColumn)
+			// 背包道具欄
 			vector<Elements> grid_items;
 			Elements backpack_row;
 			int count = 0;
@@ -84,20 +86,32 @@ public:
 			for (auto& item : backpack_items) {
 				if (item.second > 0) {
 					Elements equipButtons;
+					string item_name = item.first.name();
+					size_t pos = item_name.find("class ");
+
+					if (pos != string::npos) {
+						item_name = item_name.substr(pos + 6);
+					}
+
 					for (int j = 0; j < players.size(); j++)
 					{
+						string button_text = "Equip ";
+
 						Element equipButton;
+						if (item_name == "Tent") {
+							button_text = "Use   ";
+						}
 						if (chooseBagItemIndex == ((i * 3) + j)) {
-							equipButton = text("Equip" + players[j].getDisplay()) | bgcolor(Color::Green) | size(WIDTH, EQUAL, 10);
+							equipButton = text(button_text + players[j].getDisplay()) | bgcolor(Color::Green) | size(WIDTH, EQUAL, 11);
 						}
 						else {
-							equipButton = text("Equip" + players[j].getDisplay()) | bgcolor(Color::GrayDark) | size(WIDTH, EQUAL, 10);
+							equipButton = text(button_text + players[j].getDisplay()) | bgcolor(Color::GrayDark) | size(WIDTH, EQUAL, 11);
 						}
 						equipButtons.push_back(equipButton);
 					}
 
 					backpack_row.push_back(vbox({
-						text(item.first.name()),
+						text(item_name),
 						text("amount: " + to_string(item.second)),
 						vbox(equipButtons)
 						}) | border | size(WIDTH, GREATER_THAN, 20));
@@ -136,15 +150,16 @@ public:
 				| size(HEIGHT, GREATER_THAN, 150)
 				| border;
 			});
+
 		bagComponent |= CatchEvent([&](Event event) {
 			if (event.is_character() && event.character() == "a") {
-				// �I�]��첾��
+				// 背包欄位移動
 				if (chooseBagItemIndex > 0) {
 					chooseBagItemIndex -= 1;
 				}
 			}
 			if (event.is_character() && event.character() == "d") {
-				// �I�]��첾��
+				// 背包欄位移動
 				map<type_index, int> backpack_items = Singleton<GameManager>::instance().backpack->getItems();
 
 				int max_length = 0;
@@ -157,22 +172,52 @@ public:
 					chooseBagItemIndex += 1;
 				}
 			}
-			if (event.is_character() && event.character() == "j") {// ���b�Y[D
+			if (event.is_character() && event.character() == "j") {// 左箭頭[D
 				if (chooseBagPlayerIndex > 0) {
 					chooseBagPlayerIndex -= 1;
 				}
 			}
 
-			if (event.is_character() && event.character() == "l") {// �k�b�Y[C
+			if (event.is_character() && event.character() == "l") {// 右箭頭[C
 				if (chooseBagPlayerIndex < (players.size() * 3) - 1) {
 					chooseBagPlayerIndex += 1;
 				}
 			}
-			if (event.is_character() && event.character() == " ") {
-				// �˳�
+			if (event.is_character() && event.character() == " ") {// 裝備
+				vector<Player> players = Singleton<GameManager>::instance().players;
+				int typeIndex = chooseBagItemIndex / 3;
+				int playerIndex = chooseBagItemIndex % 3;
+				map<type_index, int> backpack_items = Singleton<GameManager>::instance().backpack->getItems();
+				auto it = backpack_items.begin();
+				advance(it, typeIndex);
+				if (it == backpack_items.end()) {
+					return false;
+				}
+
+				auto* item = EquipFactory::instance().createInstance(it->first);
+				auto type_ptr = std::unique_ptr<Equipment>(item);
+				Weapon* weapon = dynamic_cast<Weapon*>(type_ptr.get());
+
+				// 擷取名稱
+				string item_name = it->first.name();
+				size_t pos = item_name.find("class ");
+				if (pos != string::npos) {
+					item_name = item_name.substr(pos + 6);
+				}
+
+				if (item_name != "Tent") {
+					if (Weapon* weaponPtr = dynamic_cast<Weapon*>(item)) {// 裝備後讀取壞掉
+						if (Singleton<GameManager>::instance().players[playerIndex].getWeapon() == nullptr) {
+							Singleton<GameManager>::instance().players[playerIndex].wearWeapon(weapon);
+						}
+					}
+				} else {
+					// 使用道具(還沒好)
+				}
 			}
 			if (event.is_character() && event.character() == "u") {
-				// ���U�˳�
+				vector<Player> players = Singleton<GameManager>::instance().players;
+				// 卸下裝備
 				int typeIndex = chooseBagPlayerIndex % 3;
 				int playerIndex = chooseBagPlayerIndex / 3;
 				if (typeIndex == 0) { // weapon

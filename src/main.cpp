@@ -41,14 +41,14 @@ void initialPlayers() {
     for (int index = 0; index < 3; ++index) {
         Player player(Position{ index + 1, 2 }, "Player" + std::to_string(index + 1));
         // Sleep(1000); 防止資料重疊
-        Hammer* hammer = new Hammer();
-        player.wearWeapon(hammer);
-
-        PlateArmor* plateArmor = new PlateArmor();
-        player.wearArmor(plateArmor);
-
-        HolyGrail* holyGrail = new HolyGrail();
-        player.wearAccessory(holyGrail);
+        //Hammer* hammer = new Hammer();
+        //player.wearWeapon(hammer);
+        //
+        //PlateArmor* plateArmor = new PlateArmor();
+        //player.wearArmor(plateArmor);
+        //
+        //HolyGrail* holyGrail = new HolyGrail();
+        //player.wearAccessory(holyGrail);
 
         Singleton<GameManager>::instance().players.push_back(player);
     }
