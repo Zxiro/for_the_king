@@ -5,8 +5,8 @@
 
 class Wall : public Entity {
 public:
-    Wall() : Entity(Position{ 0, 0 }, "Wall") {}
-    Wall(const Position& pos) : Entity(pos, "Wall") {}
+    Wall() : Entity(Position{ 0, 0 }, " ") {}
+    Wall(const Position& pos) : Entity(pos, " ") {}
 
     bool isPassable() const override {
         return false;

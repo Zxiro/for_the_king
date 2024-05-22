@@ -140,18 +140,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\entities\entity\Road.h" />
+    <ClCompile Include="src\exception\FocusNotEnoughException.h" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\manager\BackpackManager.h" />
     <ClCompile Include="src\ui\handler\KeyboardInputHandler.cpp" />
     <ClCompile Include="src\ui\handler\KeyboardInputUI.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\entities\Backpack.h" />
     <ClInclude Include="src\entities\Board.h" />
     <ClInclude Include="src\entities\Effect.h" />
     <ClInclude Include="src\entities\entity\creature\Creature.h" />
     <ClInclude Include="src\entities\entity\Entity.h" />
     <ClInclude Include="src\entities\entity\Store.h" />
-    <ClInclude Include="src\entities\entity\Tent.h" />
     <ClInclude Include="src\entities\entity\Wall.h" />
     <ClInclude Include="src\entities\item\equipment\accessory\Accessory.h" />
     <ClInclude Include="src\entities\item\equipment\accessory\Bracelet.h" />
@@ -172,6 +173,7 @@
     <ClInclude Include="src\entities\item\equipment\weapon\WoodenSword.h" />
     <ClInclude Include="src\entities\item\Item.h" />
     <ClInclude Include="src\enum\EventType.h" />
+    <ClInclude Include="src\enum\InteractiveType.h" />
     <ClInclude Include="src\exception\ElementNotFoundException.h" />
     <ClInclude Include="src\factory\EquipFactory.h" />
     <ClInclude Include="src\manager\EventManager.h" />
@@ -188,12 +190,12 @@
     <ClInclude Include="src\exception\MoneyNotEnoughException.h" />
     <ClInclude Include="src\exception\UnImplementException.h" />
     <ClInclude Include="src\enum\EquipmentType.h" />
-    <ClInclude Include="src\ui\BagModal.h" />
+    <ClInclude Include="src\ui\modal\BagModal.h" />
     <ClInclude Include="src\ui\GameColumn.h" />
     <ClInclude Include="src\ui\MainScreen.h" />
     <ClInclude Include="src\ui\MapArea.h" />
     <ClInclude Include="src\ui\PlayerRow.h" />
-    <ClInclude Include="src\ui\StoreModal.h" />
+    <ClInclude Include="src\ui\modal\StoreModal.h" />
     <ClInclude Include="src\utils\EffectUtil.h" />
     <ClInclude Include="src\ui\handler\KeyboardInputHandler.h" />
     <ClInclude Include="src\ui\handler\KeyboardInputUI.h" />

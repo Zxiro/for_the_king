@@ -1,58 +1,33 @@
 #ifndef MAPAREA_H
 #define MAPAREA_H
 
-#include <math.h>
+
 #include <random>
+#include "manager/GameManager.h"
 
 
 class MapArea
 {
 private:
+	vector<vector<string>> getMap()
+	{
+		auto entityMap = Singleton<GameManager>::instance().map->getMap();
+		vector<vector<string>> res;
 
-public:
-	vector<vector<string>> generateMap() {
-		// GameMap gameMap(140, 50);
-		vector<vector<string>> fake_map(140, vector<string>(140, "."));
-
-		random_device rd;
-		mt19937 gen(rd());
-		uniform_int_distribution<int> dis_row(0, 139);
-		uniform_int_distribution<int> dis_col(0, 139);
-		int row_1 = dis_row(gen);
-		int col_1 = dis_col(gen);
-
-		for (int i = 0; i < 5; ++i) {
-			int row_$ = dis_row(gen);
-			int col_$ = dis_col(gen);
-			fake_map[row_$][col_$] = "$";
+		for (int i = 0; i < entityMap.size(); ++i)
+		{
+			vector<string> cell;
+			for (int j = 0; j < entityMap[0].size(); ++j)
+			{
+				cell.push_back(entityMap[i][j]->getDisplay());
+			}
+			res.push_back(cell);
 		}
-
-		for (int i = 0; i < 5; ++i) {
-			int row_quest = dis_row(gen);
-			int col_quest = dis_col(gen);
-			fake_map[row_quest][col_quest] = "?";
-		}
-
-		for (int i = 0; i < 3; ++i) {
-			int row_quest = dis_row(gen);
-			int col_quest = dis_col(gen);
-			fake_map[row_quest][col_quest] = "E";
-		}
-
-		for (int i = 0; i < 20; ++i) {
-			int row_space = dis_row(gen);
-			int col_space = dis_col(gen);
-			fake_map[row_space][col_space] = " ";
-		}
-		fake_map[row_1][col_1] = "1";
-
-		return fake_map;
+		return res;
 	}
-
+public:
 	Component printUI() {
-		//GameManager manager;
-		auto gameMap = generateMap();
-		//manager.map = gameMap;
+		auto gameMap = getMap();
 		Elements map_elements;
 		for (const auto& row : gameMap) {
 			Elements row_elements;

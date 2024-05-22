@@ -21,7 +21,6 @@
 #include "entities/item/equipment/weapon/Hammer.h"
 #include "entities/item/equipment/armor/LeatherArmor.h"
 #include "entities/item/equipment/accessory/HolyGrail.h"
-#include "entities/Backpack.h"
 #include "entities/entity/Store.h"
 #include "entities/item/equipment/accessory/HolyGrail.h"
 #include "entities/item/equipment/armor/PlateArmor.h"
@@ -247,8 +246,8 @@ class Test
 		auto bagComponent = Button("X", hide_modal);
 
 		bagComponent |= Renderer([&](Element closeButton) {
-			map<type_index, int> backpack_items = Singleton<GameManager>::instance().backpack->getItems();
-			int money = Singleton<GameManager>::instance().backpack->getMoney();
+			map<type_index, int> backpack_items = Singleton<BackpackManager>::instance().getItems();
+			int money = Singleton<BackpackManager>::instance().getMoney();
 
 			// player(RightColumn)
 			Elements playerColumn;
@@ -371,7 +370,7 @@ class Test
 			}
 			if (event.is_character() && event.character() == "d") {
 				// 背包欄位移動
-				map<type_index, int> backpack_items = Singleton<GameManager>::instance().backpack->getItems();
+				map<type_index, int> backpack_items = {};
 
 				int max_length = 0;
 				for (auto& item : backpack_items) {
@@ -431,7 +430,7 @@ class Test
 			});
 
 		storeComponent |= Renderer([&](Element closeButton) {
-			int money = Singleton<GameManager>::instance().backpack->getMoney();
+			int money = 0;
 			// items
 			vector<Elements> grid_items;
 			Elements store_row;
@@ -497,7 +496,7 @@ class Test
 			}
 			if (event.is_character() && event.character() == " ") {
 				// 購買
-				int money = Singleton<GameManager>::instance().backpack->getMoney();
+				int money = 0;
 				auto it = store_items.begin();
 				std::advance(it, chooseStoreIndex);
 				if (it != store_items.end()) {
