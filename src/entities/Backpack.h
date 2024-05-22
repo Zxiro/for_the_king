@@ -25,23 +25,23 @@ public:
 		: money(600)
 	{
 		items = {
-			{typeid(WoodenSword), 100},
-			{typeid(Hammer), 100},
-			{typeid(GiantHammer), 100},
-			{typeid(MagicWand), 100},
-			{typeid(RitualSword), 100},
-			{typeid(WoodenShield), 100},
-			{typeid(PlateArmor), 100},
-			{typeid(LeatherArmor), 100},
-			{typeid(Robe), 100},
-			{typeid(LaurelWreath), 100},
-			{typeid(HolyGrail), 100},
-			{typeid(Shoes), 100},
-			{typeid(Bracelet), 100},
+			{typeid(WoodenSword), 2},
+			{typeid(Hammer), 0},
+			{typeid(GiantHammer), 0},
+			{typeid(MagicWand), 0},
+			{typeid(RitualSword), 0},
+			{typeid(WoodenShield), 0},
+			{typeid(PlateArmor), 0},
+			{typeid(LeatherArmor), 2},
+			{typeid(Robe), 0},
+			{typeid(LaurelWreath), 0},
+			{typeid(HolyGrail), 0},
+			{typeid(Shoes), 0},
+			{typeid(Bracelet), 0},
 			/*{typeid(GodsBeard), 100},
 			{typeid(GoldenRoot), 100},
 			{typeid(TeleportScroll), 100},*/
-			{typeid(Tent), 100}
+			{typeid(Tent), 0}
 		};
 	};
 

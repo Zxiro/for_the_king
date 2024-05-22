@@ -35,17 +35,6 @@ public:
 				string player_armor = (playerInfo.getArmor() == nullptr) ? "" : playerInfo.getArmor()->getName();
 				string player_accessory = (playerInfo.getAccessory() == nullptr) ? "" : playerInfo.getAccessory()->getName();
 
-				Elements takeOffButtons;
-				for (int l = 0; l < 3; l++)
-				{
-					Element takeOffButton;
-					if (chooseBagPlayerIndex == ((k * 3) + l)) {
-					}
-					else {
-						takeOffButton = text("Take off") | bgcolor(Color::GrayDark) | size(WIDTH, EQUAL, 6);
-					}
-					takeOffButtons.push_back(takeOffButton);
-				}
 				auto WeaponStyle = (chooseBagPlayerIndex == (k * 3) + 0) ? bgcolor(Color::Red) : bgcolor(Color::GrayDark);
 				auto ArmorStyle = (chooseBagPlayerIndex == (k * 3) + 1) ? bgcolor(Color::Red) : bgcolor(Color::GrayDark);
 				auto AccessoryStyle = (chooseBagPlayerIndex == (k * 3) + 2) ? bgcolor(Color::Red) : bgcolor(Color::GrayDark);
@@ -101,6 +90,8 @@ public:
 						if (item_name == "Tent") {
 							button_text = "Use   ";
 						}
+						// 3
+						//chooseBagItemIndex < (max_length * players.size()) - 1
 						if (chooseBagItemIndex == ((i * 3) + j)) {
 							equipButton = text(button_text + players[j].getDisplay()) | bgcolor(Color::Green) | size(WIDTH, EQUAL, 11);
 						}
@@ -161,7 +152,7 @@ public:
 			if (event.is_character() && event.character() == "d") {
 				// 背包欄位移動
 				map<type_index, int> backpack_items = Singleton<GameManager>::instance().backpack->getItems();
-
+				vector<Player> players = Singleton<GameManager>::instance().players;
 				int max_length = 0;
 				for (auto& item : backpack_items) {
 					if (item.second > 0) {
@@ -179,6 +170,7 @@ public:
 			}
 
 			if (event.is_character() && event.character() == "l") {// 右箭頭[C
+				vector<Player> players = Singleton<GameManager>::instance().players;
 				if (chooseBagPlayerIndex < (players.size() * 3) - 1) {
 					chooseBagPlayerIndex += 1;
 				}

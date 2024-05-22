@@ -17,7 +17,7 @@
 
 
 #include "ui/MainScreen.h"
-
+#include "manager/Singleton.h"
 #include <windows.h>
 
 void registerInstance()
