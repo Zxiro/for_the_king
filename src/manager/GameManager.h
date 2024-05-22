@@ -15,6 +15,7 @@ public:
 		worldEvent = {};
 		map = new Board(140, 50);
 	}
+	int currentPlayer = 0;
 	std::vector<Player> players;
 	std::vector<Player> enemies;
 	std::vector<RandomEvent> worldEvent;
