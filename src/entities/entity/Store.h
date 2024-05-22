@@ -19,9 +19,8 @@
 #include "../item/equipment/weapon/MagicWand.h"
 #include "../item/equipment/weapon/RitualSword.h"
 #include "../item/equipment/weapon/WoodenSword.h"
-#include "../entity/Tent.h"
 #include "../../exception/MoneyNotEnoughException.h"
-#include "../../manager/GameManager.h"
+#include "../../manager/BackpackManager.h"
 #include "../../manager/Singleton.h"
 #include "../../structs/Position.h"
 
@@ -48,14 +47,15 @@ public:
 			{typeid(Bracelet), 100},
 			/*{typeid(GodsBeard), 100},
 			{typeid(GoldenRoot), 100},
-			{typeid(TeleportScroll), 100},*/
-			{typeid(Tent), 100}
+			{typeid(TeleportScroll), 100},
+			{typeid(Tent), 100}*/
 		};
 	};
 
 	void buyItem(const std::string &itemName)
 	{
-		int money = Singleton<GameManager>::instance()->backpack.getMoney();
+		auto backpack = Singleton<BackpackManager>::instance();
+		int money = backpack.getMoney();
 
 		auto item = MapUtil<std::type_index, int>::findFirst(this->items, [&](const std::type_index& key)
 			{
@@ -67,8 +67,8 @@ public:
 		if (money < price)
 			throw MoneyNotEnoughException();
 
-		Singleton<GameManager>::instance()->backpack.setMoney(money - price);
-		Singleton<GameManager>::instance()->backpack.addItem(itemName);
+		backpack.setMoney(money - price);
+		backpack.addItem(itemName);
 	}
 
 	std::map<std::type_index, int> getItems() const

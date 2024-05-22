@@ -5,15 +5,12 @@
 #include "../../structs/Position.h"
 #include "creature/Player.h"
 #include <cstdlib>
-#include <ctime>
 #include "../enum/EventType.h";
 
 
 class RandomEvent : public Entity {
 public:
-    RandomEvent() : Entity(Position{ 0, 0 }, "RandomEvent"), type(EventType::FoundMoney) {}
-    RandomEvent(const Position& pos, EventType eventType)
-        : Entity(pos, "RandomEvent"), type(eventType) {}
+    RandomEvent(const Position& pos) : Entity(pos, "?") {}
 
     bool isPassable() const override {
         return true;
@@ -40,11 +37,10 @@ public:
     }
 
 private:
-    EventType type;
+    EventType type= static_cast<EventType>(rand() % 5);
 
     void foundMoney(Player& player) {
         int amount = rand() % 100 + 1;
-        player.modifyMoney(amount);
         std::cout << "You found " << amount << " money!\n";
     }
 

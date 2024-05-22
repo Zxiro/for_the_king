@@ -7,12 +7,12 @@
 #include "../../item/equipment/weapon/Weapon.h"
 #include <random>
 #include <cmath>
+#include "../../../manager/Singleton.h"
 #include "../../../exception/FocusNotEnoughException.h"
 #include "../../../utils/EffectUtil.h"
 #include "../../../enum/InteractiveType.h"
-#include "../../../manager/GameManager.h"
+#include "../../../manager/BackpackManager.h"
 
-class GameManager;
 
 class Player : public Creature
 {
@@ -89,7 +89,7 @@ public:
 			if (type == InteractiveType::treasure)
 			{
 				int amount = successCount * 2;
-				Singleton<GameManager>::instance()->backpack.addMoney(amount);
+				Singleton<BackpackManager>::instance().addMoney(amount);
 			}
 		};
 
@@ -116,7 +116,7 @@ public:
 					continue;
 				}
 
-				if(!isRollDiceSuccess(rollDiceChance))
+				if (!isRollDiceSuccess(rollDiceChance))
 				{
 					continue;
 				}
@@ -125,7 +125,7 @@ public:
 			}
 		}
 
-		if(successCount == 0)
+		if (successCount == 0)
 		{
 			failed();
 			return;
