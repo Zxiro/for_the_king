@@ -30,6 +30,7 @@ private:
 		shared_ptr<Weapon> weapon = std::dynamic_pointer_cast<Weapon>(item);
 		shared_ptr<Armor> armor = std::dynamic_pointer_cast<Armor>(item);
 		shared_ptr<Accessory> accessory= std::dynamic_pointer_cast<Accessory>(item);
+		shared_ptr<Item> useItem = std::dynamic_pointer_cast<Item>(item);
 
 		if(weapon != nullptr && !this->players[playerIndex].getWeapon())
 		{
@@ -42,11 +43,15 @@ private:
 		else if(accessory != nullptr && !this->players[playerIndex].getAccessory())
 		{
 			Singleton<GameManager>::instance().players[playerIndex].wearAccessory(accessory);
+		} else
+		{
+			//TODO: use item;
 		}
 
-		//TODO: use item;
-
-		Singleton<BackpackManager>::instance().removeItem(item->getName());
+		if(isUse)
+		{
+			Singleton<BackpackManager>::instance().removeItem(item->getName());
+		}
 	}
 	void takeOffEquipment()
 	{
