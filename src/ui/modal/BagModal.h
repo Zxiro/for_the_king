@@ -18,6 +18,7 @@ private:
 	int money;
 	map<type_index, int> backpack_items;
 	vector<std::string> ui_items;
+	function<void()> onRefresh;
 	void wearEquipment()
 	{
 		int typeIndex = chooseBagItemIndex / 3;
@@ -80,12 +81,15 @@ private:
 		this->money = Singleton<BackpackManager>::instance().getMoney();
 		this->backpack_items = Singleton<BackpackManager>::instance().getItems();
  		this->players = Singleton<GameManager>::instance().players;
+
+		this->onRefresh();
 	}
 
 public:
-	BagModal() {
+	BagModal(function<void()> onRefresh) {
 		chooseBagPlayerIndex = 0;
 		chooseBagItemIndex = 0;
+		this->onRefresh = onRefresh;
 	}
 
 	Component modalUI(std::function<void()> hide_modal) {

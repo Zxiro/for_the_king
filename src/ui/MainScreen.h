@@ -25,6 +25,9 @@ class MainScreen
 {
 private:
 	Store* store;
+	MapArea mapArea;
+	PlayerRow playerRow;
+	GameColumn gameColumn;
 public:
 	MainScreen() {
 		store = new Store({ 133, 45 });
@@ -37,7 +40,10 @@ public:
 		bool bag_modal_shown = false;
 
 		// Bag
-		BagModal bagModal;
+		BagModal bagModal([&]()
+		{
+
+		});
 		auto bag_modal_component = bagModal.modalUI([&] { bag_modal_shown = false; });
 
 		// Store
@@ -46,9 +52,6 @@ public:
 
 
 		// Area
-		MapArea mapArea;
-		PlayerRow playerRow;
-		GameColumn gameColumn;
 		Component container = mapArea.printUI();
 		Component player_row = playerRow.printUI();
 		Component sidebar = gameColumn.printUI();

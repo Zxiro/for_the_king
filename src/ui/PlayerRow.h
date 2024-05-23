@@ -11,13 +11,13 @@ class PlayerRow
 {
 private:
 	vector<Player> players;
+	int chooseIndex;
 public:
 	PlayerRow() {
 		players = Singleton<GameManager>::instance().players;
-	};
+	}
 
-	Element createPlayerElement(int index) {
-		Player player = players[index];
+	Element createPlayerElement(Player player) {
 		Elements elements;
 		string player_weapon = (!player.getWeapon()) ? "" : player.getWeapon()->getName();
 		string player_armor = (!player.getArmor()) ? "" : player.getArmor()->getName();
@@ -47,20 +47,25 @@ public:
 		return vbox(move(elements));
 	}
 	Component printUI() {
-		int chooseIndex = 0;// 還沒寫遊戲狀態 所以暫時用假選擇
-		Elements playersElements;
-		for (int i = 0; i < 3; ++i) {
-			if (chooseIndex == i) {
-				playersElements.push_back(createPlayerElement(i) | borderStyled(LIGHT, Color::Green) | flex);
-			}
-			else {
-				playersElements.push_back(createPlayerElement(i) | border | flex);
-			}
-		}
+		return Renderer([&] {
+			refreshUI();
 
-		return Renderer([playersElements = move(playersElements)]{
+			Elements playersElements;
+			for (int i = 0; i < 3; ++i) {
+				if (chooseIndex == i) {
+					playersElements.push_back(createPlayerElement(this->players[i]) | borderStyled(LIGHT, Color::Green) | flex);
+				}
+				else {
+					playersElements.push_back(createPlayerElement(this->players[i]) | border | flex);
+				}
+			}
 			return hbox(playersElements);
 			});
+	}
+	void refreshUI()
+	{
+		this->players = Singleton<GameManager>::instance().players;
+		this->chooseIndex = Singleton<GameManager>::instance().currentPlayer;
 	}
 };
 
