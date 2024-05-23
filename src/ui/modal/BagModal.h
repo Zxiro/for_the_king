@@ -78,7 +78,7 @@ private:
 		else if (typeIndex == 2) { // accessory
 			if (players[playerIndex].getAccessory()) {
 				Singleton<GameManager>::instance().players[playerIndex].removeAccessory();
-				Singleton<BackpackManager>::instance().addItem(players[playerIndex].getAccessory()->getName())
+				Singleton<BackpackManager>::instance().addItem(players[playerIndex].getAccessory()->getName());
 			}
 		}
 	}
