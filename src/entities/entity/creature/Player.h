@@ -152,28 +152,16 @@ public:
 
 	void removeWeapon()
 	{
-		if(this->weapon != nullptr)
-		{
-			Singleton<BackpackManager>::instance().addItem(this->weapon->getName());
-		}
 		this->weapon = nullptr;
 	}
 
 	void removeArmor()
 	{
-		if (this->armor != nullptr)
-		{
-			Singleton<BackpackManager>::instance().addItem(this->armor->getName());
-		}
 		this->armor = nullptr;
 	}
 
 	void removeAccessory()
 	{
-		if (this->accessory != nullptr)
-		{
-			Singleton<BackpackManager>::instance().addItem(this->accessory->getName());
-		}
 		this->accessory = nullptr;
 	}
 

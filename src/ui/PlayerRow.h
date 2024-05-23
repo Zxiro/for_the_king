@@ -12,11 +12,15 @@ class PlayerRow
 private:
 	vector<Player> players;
 	int chooseIndex;
+	void refreshUI()
+	{
+		this->players = Singleton<GameManager>::instance().players;
+		this->chooseIndex = Singleton<GameManager>::instance().currentPlayer;
+	}
 public:
 	PlayerRow() {
 		players = Singleton<GameManager>::instance().players;
 	}
-
 	Element createPlayerElement(Player player) {
 		Elements elements;
 		string player_weapon = (!player.getWeapon()) ? "" : player.getWeapon()->getName();
@@ -61,11 +65,6 @@ public:
 			}
 			return hbox(playersElements);
 			});
-	}
-	void refreshUI()
-	{
-		this->players = Singleton<GameManager>::instance().players;
-		this->chooseIndex = Singleton<GameManager>::instance().currentPlayer;
 	}
 };
 

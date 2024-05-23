@@ -18,7 +18,6 @@ private:
 	int money;
 	map<type_index, int> backpack_items;
 	vector<std::string> ui_items;
-	function<void()> onRefresh;
 	void wearEquipment()
 	{
 		int typeIndex = chooseBagItemIndex / 3;
@@ -36,15 +35,19 @@ private:
 		if(weapon != nullptr && !this->players[playerIndex].getWeapon())
 		{
 			Singleton<GameManager>::instance().players[playerIndex].wearWeapon(weapon);
+			isUse = true;
 		}
 		else if(armor != nullptr && !this->players[playerIndex].getArmor())
 		{	
 			Singleton<GameManager>::instance().players[playerIndex].wearArmor(armor);
+			isUse = true;
 		}
 		else if(accessory != nullptr && !this->players[playerIndex].getAccessory())
 		{
 			Singleton<GameManager>::instance().players[playerIndex].wearAccessory(accessory);
-		} else
+			isUse = true;
+		}
+		else
 		{
 			//TODO: use item;
 		}
@@ -63,16 +66,19 @@ private:
 		if (typeIndex == 0) { // weapon
 			if (players[playerIndex].getWeapon()) {
 				Singleton<GameManager>::instance().players[playerIndex].removeWeapon();
+				Singleton<BackpackManager>::instance().addItem(players[playerIndex].getWeapon()->getName());
 			}
 		}
 		else if (typeIndex == 1) { // armor
 			if (players[playerIndex].getArmor()) {
 				Singleton<GameManager>::instance().players[playerIndex].removeArmor();
+				Singleton<BackpackManager>::instance().addItem(players[playerIndex].getArmor()->getName());
 			}
 		}
 		else if (typeIndex == 2) { // accessory
 			if (players[playerIndex].getAccessory()) {
 				Singleton<GameManager>::instance().players[playerIndex].removeAccessory();
+				Singleton<BackpackManager>::instance().addItem(players[playerIndex].getAccessory()->getName())
 			}
 		}
 	}
@@ -81,15 +87,12 @@ private:
 		this->money = Singleton<BackpackManager>::instance().getMoney();
 		this->backpack_items = Singleton<BackpackManager>::instance().getItems();
  		this->players = Singleton<GameManager>::instance().players;
-
-		this->onRefresh();
 	}
 
 public:
-	BagModal(function<void()> onRefresh) {
+	BagModal() {
 		chooseBagPlayerIndex = 0;
 		chooseBagItemIndex = 0;
-		this->onRefresh = onRefresh;
 	}
 
 	Component modalUI(std::function<void()> hide_modal) {
@@ -245,7 +248,6 @@ public:
 				takeOffEquipment();
 			}
 
-			refreshUI();
 			return false;
 			});
 		return bagComponent;

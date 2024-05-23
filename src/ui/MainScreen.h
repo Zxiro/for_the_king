@@ -40,10 +40,7 @@ public:
 		bool bag_modal_shown = false;
 
 		// Bag
-		BagModal bagModal([&]()
-		{
-
-		});
+		BagModal bagModal;
 		auto bag_modal_component = bagModal.modalUI([&] { bag_modal_shown = false; });
 
 		// Store
