@@ -3,6 +3,7 @@
 #include <sstream>
 #include <iomanip>
 #include <string>
+#include <typeindex>
 
 
 class StringUtil
@@ -13,6 +14,19 @@ public:
 		std::ostringstream out;
 		out << std::fixed << std::setprecision(precision) << value;
 		return out.str();
+	}
+
+	static std::string getName(std::type_index type)
+	{
+		std::string name = type.name();
+		size_t pos = name.find("class ");
+
+		if (pos != std::string::npos) {
+			name = name.substr(pos + 6);
+		}
+
+
+		return name;
 	}
 };
 

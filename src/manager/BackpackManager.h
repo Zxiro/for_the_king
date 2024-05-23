@@ -18,6 +18,8 @@
 #include "../entities/item/equipment/armor/LeatherArmor.h"
 #include "../entities/item/equipment/weapon/Hammer.h"
 #include "../entities/item/equipment/weapon/WoodenSword.h"
+#include "../utils/StringUtil.h"
+
 class BackpackManager
 {
 public:
@@ -30,7 +32,7 @@ public:
 			{typeid(MagicWand), 0},
 			{typeid(RitualSword), 0},
 			{typeid(WoodenShield), 0},
-			{typeid(PlateArmor), 0},
+			{typeid(PlateArmor), 10},
 			{typeid(LeatherArmor), 0},
 			{typeid(Robe), 0},
 			{typeid(LaurelWreath), 0},
@@ -63,7 +65,7 @@ public:
 	{
 		auto item = MapUtil<std::type_index, int>::findFirst(this->items, [&](const std::type_index& key)
 			{
-				return key.name() == itemName;
+				return StringUtil::getName(key) == itemName;
 			});
 		items[item.first] += 1;
 	}
@@ -72,7 +74,7 @@ public:
 	{
 		auto item = MapUtil<std::type_index, int>::findFirst(this->items, [&](const std::type_index& key)
 			{
-				return key.name() == itemName;
+				return StringUtil::getName(key) == itemName;
 			});
 		if (item.second == 0)
 			throw ItemNotEnoughException();
@@ -84,6 +86,7 @@ public:
 	{
 		return items;
 	}
+
 
 private:
 	int money = 600;

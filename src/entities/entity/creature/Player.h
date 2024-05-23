@@ -135,49 +135,66 @@ public:
 	}
 
 	//Equip function
-	void wearWeapon(Weapon* weapon)
+	void wearWeapon(std::shared_ptr<Weapon>& weapon)
 	{
-		this->weapon = weapon;
+		this->weapon = std::static_pointer_cast<Weapon>(weapon);
 	}
 
-	void wearArmor(Armor* armor)
+	void wearArmor(std::shared_ptr<Armor>& armor)
 	{
-		this->armor = armor;
+		this->armor = std::static_pointer_cast<Armor>(armor);
 	}
 
-	void wearAccessory(Accessory* accessory)
+	void wearAccessory(std::shared_ptr<Accessory>& accessory)
 	{
-		this->accessory = accessory;
+		this->accessory = std::static_pointer_cast<Accessory>(accessory);
 	}
 
 	void removeWeapon()
 	{
+		if(this->weapon != nullptr)
+		{
+			Singleton<BackpackManager>::instance().addItem(this->weapon->getName());
+		}
 		this->weapon = nullptr;
 	}
 
 	void removeArmor()
 	{
+		if (this->armor != nullptr)
+		{
+			Singleton<BackpackManager>::instance().addItem(this->armor->getName());
+		}
 		this->armor = nullptr;
 	}
 
 	void removeAccessory()
 	{
+		if (this->accessory != nullptr)
+		{
+			Singleton<BackpackManager>::instance().addItem(this->accessory->getName());
+		}
 		this->accessory = nullptr;
 	}
 
 	Weapon* getWeapon()
 	{
-		return this->weapon;
+		return this->weapon.get();
 	}
 
 	Armor* getArmor()
 	{
-		return this->armor;
+		if(this->armor != nullptr)
+		{
+			auto test = this->armor->getName();
+		}
+		
+		return this->armor.get();
 	}
 
 	Accessory* getAccessory()
 	{
-		return this->accessory;
+		return this->accessory.get();
 	}
 
 
@@ -189,50 +206,50 @@ public:
 
 	double getFocus() const override
 	{
-		int effect = EffectUtil<Weapon>::getFocus(this->weapon);
-		effect += EffectUtil<Armor>::getFocus(this->armor);
-		effect += EffectUtil<Accessory>::getFocus(this->accessory);
+		int effect = EffectUtil<Weapon>::getFocus(this->weapon.get());
+		effect += EffectUtil<Armor>::getFocus(this->armor.get());
+		effect += EffectUtil<Accessory>::getFocus(this->accessory.get());
 		return focus + effect;
 	}
 
 	double getSpeed() const override
 	{
-		int effect = EffectUtil<Weapon>::getSpeed(this->weapon);
-		effect += EffectUtil<Armor>::getSpeed(this->armor);
-		effect += EffectUtil<Accessory>::getSpeed(this->accessory);
+		int effect = EffectUtil<Weapon>::getSpeed(this->weapon.get());
+		effect += EffectUtil<Armor>::getSpeed(this->armor.get());
+		effect += EffectUtil<Accessory>::getSpeed(this->accessory.get());
 		return speed + effect;
 	}
 
 	double getHitRate() const override
 	{
-		int effect = EffectUtil<Weapon>::getHitRate(this->weapon);
-		effect += EffectUtil<Armor>::getHitRate(this->armor);
-		effect += EffectUtil<Accessory>::getHitRate(this->accessory);
+		int effect = EffectUtil<Weapon>::getHitRate(this->weapon.get());
+		effect += EffectUtil<Armor>::getHitRate(this->armor.get());
+		effect += EffectUtil<Accessory>::getHitRate(this->accessory.get());
 		return hitRate + effect;
 	}
 
 	double getPAttack() const override
 	{
-		int effect = EffectUtil<Weapon>::getPAttack(this->weapon);
-		effect += EffectUtil<Armor>::getPAttack(this->armor);
-		effect += EffectUtil<Accessory>::getPAttack(this->accessory);
+		int effect = EffectUtil<Weapon>::getPAttack(this->weapon.get());
+		effect += EffectUtil<Armor>::getPAttack(this->armor.get());
+		effect += EffectUtil<Accessory>::getPAttack(this->accessory.get());
 		return pAttack + effect;
 	}
 
 	double getMAttack() const override
 	{
-		int effect = EffectUtil<Weapon>::getMAttack(this->weapon);
-		effect += EffectUtil<Armor>::getMAttack(this->armor);
-		effect += EffectUtil<Accessory>::getMAttack(this->accessory);
+		int effect = EffectUtil<Weapon>::getMAttack(this->weapon.get());
+		effect += EffectUtil<Armor>::getMAttack(this->armor.get());
+		effect += EffectUtil<Accessory>::getMAttack(this->accessory.get());
 		return mAttack + effect;
 	}
 
 	double getPDefense() const override
 	{
-		int effect = EffectUtil<Weapon>::getPDefense(this->weapon);
-		effect += EffectUtil<Armor>::getPDefense(this->armor);
+		int effect = EffectUtil<Weapon>::getPDefense(this->weapon.get());
+		effect += EffectUtil<Armor>::getPDefense(this->armor.get());
 
-		int accessoryPDefense = EffectUtil<Accessory>::getPDefense(this->accessory);
+		int accessoryPDefense = EffectUtil<Accessory>::getPDefense(this->accessory.get());
 		int res = 0;
 		// 特別處理，寫法很差，目前想不到更好的寫法
 		if (accessory != nullptr && accessory->getName() == "LaurelWreath")
@@ -250,9 +267,9 @@ public:
 
 	double getMDefense() const override
 	{
-		int effect = EffectUtil<Weapon>::getMDefense(this->weapon);
-		effect += EffectUtil<Armor>::getMDefense(this->armor);
-		effect += EffectUtil<Accessory>::getMDefense(this->accessory);
+		int effect = EffectUtil<Weapon>::getMDefense(this->weapon.get());
+		effect += EffectUtil<Armor>::getMDefense(this->armor.get());
+		effect += EffectUtil<Accessory>::getMDefense(this->accessory.get());
 		return mDefense + effect;
 	}
 
@@ -282,9 +299,9 @@ public:
 	}
 
 private:
-	Weapon* weapon = nullptr;
-	Armor* armor = nullptr;
-	Accessory* accessory = nullptr;
+	std::shared_ptr<Weapon> weapon = nullptr;
+	std::shared_ptr<Armor> armor = nullptr;
+	std::shared_ptr <Accessory> accessory = nullptr;
 	int totalMovementCount = 0;
 	int currentMovementCount = 0;
 	int maxMovement = 0;

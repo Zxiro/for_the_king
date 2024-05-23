@@ -1,8 +1,13 @@
 #ifndef STOREMODAL_H
 #define STOREMODAL_H
 
-#include "../structs/Position.h"
-#include "../entities/entity/Store.h"
+#include "../../entities/entity/creature/Player.h";
+#include "../../manager/BackpackManager.h"
+#include "../../manager/GameManager.h"
+
+
+using namespace std;
+using namespace ftxui;
 
 
 class StoreModal

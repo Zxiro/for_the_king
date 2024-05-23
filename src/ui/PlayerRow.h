@@ -19,9 +19,9 @@ public:
 	Element createPlayerElement(int index) {
 		Player player = players[index];
 		Elements elements;
-		string player_weapon = (player.getWeapon() == nullptr) ? "" : player.getWeapon()->getName();
-		string player_armor = (player.getArmor() == nullptr) ? "" : player.getArmor()->getName();
-		string player_accessory = (player.getAccessory() == nullptr) ? "" : player.getAccessory()->getName();
+		string player_weapon = (!player.getWeapon()) ? "" : player.getWeapon()->getName();
+		string player_armor = (!player.getArmor()) ? "" : player.getArmor()->getName();
+		string player_accessory = (!player.getAccessory()) ? "" : player.getAccessory()->getName();
 		elements.push_back(text("Name: " + player.getDisplay()));
 		elements.push_back(text("HP: " + StringUtil::toStringFixed(player.getVitality(), 0) + "/" + StringUtil::toStringFixed(player.getVitality(), 0)));
 		elements.push_back(text("Focus: " + StringUtil::toStringFixed(player.getFocus(), 0) + "/" + StringUtil::toStringFixed(player.getFocus(), 0)));

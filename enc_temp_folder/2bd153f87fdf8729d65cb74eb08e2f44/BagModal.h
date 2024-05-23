@@ -25,7 +25,7 @@ private:
 		bool isUse = false;
 
 		auto it = MapUtil<type_index, int>::findFirst(backpack_items, [&](type_index type) {return  StringUtil::getName(type) == ui_items[typeIndex]; });
-		
+
 		std::shared_ptr<Equipment> item = EquipFactory::instance().createInstance(it.first);
 		shared_ptr<Weapon> weapon = std::dynamic_pointer_cast<Weapon>(item);
 		shared_ptr<Armor> armor = std::dynamic_pointer_cast<Armor>(item);
@@ -34,19 +34,38 @@ private:
 		if(weapon != nullptr && !this->players[playerIndex].getWeapon())
 		{
 			Singleton<GameManager>::instance().players[playerIndex].wearWeapon(weapon);
+			isUse = true;
 		}
 		else if(armor != nullptr && !this->players[playerIndex].getArmor())
 		{	
 			Singleton<GameManager>::instance().players[playerIndex].wearArmor(armor);
+			isUse = true;
 		}
 		else if(accessory != nullptr && !this->players[playerIndex].getAccessory())
 		{
 			Singleton<GameManager>::instance().players[playerIndex].wearAccessory(accessory);
+			isUse = true;
 		}
 
-		//TODO: use item;
+		if(isUse)
+		{
+			Singleton<BackpackManager>::instance().removeItem(item->getName());
+		}
+		
 
-		Singleton<BackpackManager>::instance().removeItem(item->getName());
+		// 擷取名稱
+		/*std::string item_name = StringUtil::getName(it.first);
+
+		if (item_name != "Tent") {
+			if (Weapon* weaponPtr = dynamic_cast<Weapon*>(item)) {// 裝備後讀取壞掉
+				if (Singleton<GameManager>::instance().players[playerIndex].getWeapon()) {
+					Singleton<GameManager>::instance().players[playerIndex].wearWeapon(weapon);
+				}
+			}
+		}
+		else {
+			// 使用道具(還沒好)
+		}*/
 	}
 	void takeOffEquipment()
 	{

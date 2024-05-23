@@ -6,7 +6,7 @@
 
 class EquipFactory {
 public:
-    using CreateFunction = std::function<Equipment* ()>;
+    using CreateFunction = std::function<std::shared_ptr<Equipment> ()>;
 
     static EquipFactory& instance() {
         static EquipFactory instance;
@@ -15,10 +15,10 @@ public:
 
     template <typename T>
     void registerClass() {
-        classMap[typeid(T)] = []() -> Equipment* { return new T(); };
+        classMap[typeid(T)] = []() -> std::shared_ptr<Equipment> { return std::make_shared<T>(); };
     }
 
-    Equipment* createInstance(const std::type_index& type) const {
+    std::shared_ptr<Equipment> createInstance(const std::type_index& type) const {
         auto it = classMap.find(type);
         if (it != classMap.end()) {
             return it->second();
