@@ -19,6 +19,10 @@
 #include "../entities/item/equipment/weapon/Hammer.h"
 #include "../entities/item/equipment/weapon/WoodenSword.h"
 #include "../utils/StringUtil.h"
+#include "../entities/item/GodsBeard.h"
+#include "../entities/item/GoldenRoot.h"
+#include "../entities/item/TeleportScroll.h"
+#include "../entities/item/Tent.h"
 
 class BackpackManager
 {
@@ -39,10 +43,10 @@ public:
 			{typeid(HolyGrail), 0},
 			{typeid(Shoes), 0},
 			{typeid(Bracelet), 0},
-			/*{typeid(GodsBeard), 100},
+			{typeid(GodsBeard), 100},
 			{typeid(GoldenRoot), 100},
 			{typeid(TeleportScroll), 100},
-			{typeid(Tent), 100}*/
+			{typeid(Tent), 100}
 		};
 	};
 

@@ -3,10 +3,10 @@
 #include "Item.h"
 #include "../entity/creature/Player.h"
 
-class Godsbeard : public Item {
+class GodsBeard : public Item {
 public:
     std::string getName() const override {
-        return "Godsbeard";
+        return "GodsBeard";
     }
 
     void use(Player& player) {
