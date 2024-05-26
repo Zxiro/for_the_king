@@ -36,7 +36,7 @@ void registerInstance()
     EquipFactory::instance().registerClass<RitualSword>();
     EquipFactory::instance().registerClass<WoodenSword>();
 
-    EquipFactory::instance().registerClass<Godsbeard>();
+    EquipFactory::instance().registerClass<GodsBeard>();
     EquipFactory::instance().registerClass<GoldenRoot>();
     EquipFactory::instance().registerClass<TeleportScroll>();
     EquipFactory::instance().registerClass<Tent>();
