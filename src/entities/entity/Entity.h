@@ -23,6 +23,7 @@ public:
     }
 
     virtual bool isPassable() const = 0;
+    virtual bool canTeleport() const = 0;
 
 protected:
     Position position;

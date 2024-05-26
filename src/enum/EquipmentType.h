@@ -2,7 +2,7 @@
 #define EQUIPMENT_TYPE_H
 
 enum class EquipmentType {
-    weapon, armor, accessory
+    weapon, armor, accessory, other
 };
 
 #endif

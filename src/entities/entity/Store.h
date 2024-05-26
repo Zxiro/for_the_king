@@ -80,6 +80,10 @@ public:
 		return true;
 	}
 
+	bool canTeleport() const override {
+		return false;
+	}
+
 protected:
 	std::map<std::type_index, int> items;
 };

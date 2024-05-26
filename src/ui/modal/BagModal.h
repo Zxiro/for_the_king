@@ -26,7 +26,10 @@ private:
 
 		auto it = MapUtil<type_index, int>::findFirst(backpack_items, [&](type_index type) {return  StringUtil::getName(type) == ui_items[typeIndex]; });
 		
-		std::shared_ptr<Equipment> item = EquipFactory::instance().createInstance(it.first);
+		std::shared_ptr<Item> item = EquipFactory::instance().createInstance(it.first);
+		if (!item) {
+			return;
+		}
 		shared_ptr<Weapon> weapon = std::dynamic_pointer_cast<Weapon>(item);
 		shared_ptr<Armor> armor = std::dynamic_pointer_cast<Armor>(item);
 		shared_ptr<Accessory> accessory= std::dynamic_pointer_cast<Accessory>(item);
@@ -47,9 +50,27 @@ private:
 			Singleton<GameManager>::instance().players[playerIndex].wearAccessory(accessory);
 			isUse = true;
 		}
-		else
-		{
-			//TODO: use item;
+		else if (useItem != nullptr) {
+			if (useItem->getName() == "Godsbeard") {
+				static_cast<Godsbeard*>(useItem.get())->use(this->players[playerIndex]);
+				isUse = true;
+			}
+			else if (useItem->getName() == "GoldenRoot") {
+				static_cast<GoldenRoot*>(useItem.get())->use(this->players[playerIndex]);
+		        isUse = true;
+			}
+			else if (useItem->getName() == "TeleportScroll") {
+				Position newPosition = openMapAndSelectPosition();
+				Singleton<GameManager>::instance().teleportPlayer(this->players[playerIndex], newPosition);
+				isUse = true;
+			}
+			else if (useItem->getName() == "Tent") {
+				Position playerPosition = this->players[playerIndex].getPosition();
+				auto tent = std::make_shared<Tent>(playerPosition);
+				Singleton<GameManager>::instance().addEntity(tent);
+				tent->setPlacedByPlayerIndex(playerIndex);
+				isUse = true;
+			}
 		}
 
 		if(isUse)
@@ -87,6 +108,17 @@ private:
 		this->money = Singleton<BackpackManager>::instance().getMoney();
 		this->backpack_items = Singleton<BackpackManager>::instance().getItems();
  		this->players = Singleton<GameManager>::instance().players;
+	}
+
+	Position openMapAndSelectPosition() {
+		//TODO::讓使用者選擇位置
+		//暫時沒有UI的模式
+		int x, y;
+		std::cout << "Enter the X coordinate for teleportation: ";
+		std::cin >> x;
+		std::cout << "Enter the Y coordinate for teleportation: ";
+		std::cin >> y;
+		return Position{ x, y };
 	}
 
 public:

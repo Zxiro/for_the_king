@@ -171,7 +171,11 @@
     <ClInclude Include="src\entities\item\equipment\weapon\RitualSword.h" />
     <ClInclude Include="src\entities\item\equipment\weapon\Weapon.h" />
     <ClInclude Include="src\entities\item\equipment\weapon\WoodenSword.h" />
+    <ClInclude Include="src\entities\item\Godsbeard.h" />
+    <ClInclude Include="src\entities\item\GoldenRoot.h" />
+    <ClInclude Include="src\entities\item\TeleportScroll.h" />
     <ClInclude Include="src\entities\item\Item.h" />
+    <ClInclude Include="src\entities\item\Tent.h" />
     <ClInclude Include="src\enum\EventType.h" />
     <ClInclude Include="src\enum\InteractiveType.h" />
     <ClInclude Include="src\exception\ElementNotFoundException.h" />

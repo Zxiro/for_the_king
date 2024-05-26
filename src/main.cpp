@@ -13,7 +13,10 @@
 #include "entities/item/equipment/weapon/MagicWand.h"
 #include "entities/item/equipment/weapon/RitualSword.h"
 #include "entities/item/equipment/weapon/WoodenSword.h"
-
+#include "entities/item/Godsbeard.h"
+#include "entities/item/GoldenRoot.h"
+#include "entities/item/TeleportScroll.h"
+#include "entities/item/Tent.h"
 
 #include "ui/MainScreen.h"
 
@@ -32,6 +35,11 @@ void registerInstance()
     EquipFactory::instance().registerClass<MagicWand>();
     EquipFactory::instance().registerClass<RitualSword>();
     EquipFactory::instance().registerClass<WoodenSword>();
+
+    EquipFactory::instance().registerClass<Godsbeard>();
+    EquipFactory::instance().registerClass<GoldenRoot>();
+    EquipFactory::instance().registerClass<TeleportScroll>();
+    EquipFactory::instance().registerClass<Tent>();
 }
 
 void initialPlayers() {

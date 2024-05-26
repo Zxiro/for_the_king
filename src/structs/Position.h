@@ -1,10 +1,11 @@
 ﻿#ifndef POSITION_H
 #define POSITION_H
 
-struct Position
-{
+struct Position {
     int x;
     int y;
+
+    Position(int x = 0, int y = 0) : x(x), y(y) {}
 };
 
-#endif
+#endif // POSITION_H

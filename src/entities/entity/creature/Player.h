@@ -184,6 +184,7 @@ public:
 	{
 		return this->accessory.get();
 	}
+	// items function
 
 
 	// getter setter
@@ -266,9 +267,23 @@ public:
 		return true; // Players are passable
 	}
 
+	bool canTeleport() const override {
+		return true;
+	}
+
 	void setVitality(int vit)
 	{
 		vitality = vit;
+	}
+	
+	void setFocus(int foc)
+	{
+		if (foc > maxFocus) {
+			focus = maxFocus;
+		}
+		else {
+			focus = foc;
+		}
 	}
 
 	void setAttack(int atk)

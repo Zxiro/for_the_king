@@ -8,4 +8,7 @@ public:
     bool isPassable() const override {
         return true;
     }
+    bool canTeleport() const override {
+        return true;
+    }
 };

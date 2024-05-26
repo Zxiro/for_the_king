@@ -197,5 +197,17 @@
     <ClInclude Include="src\ui\modal\StoreModal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\entities\item\Godsbeard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entities\item\GoldenRoot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entities\item\TeleportScroll.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entities\item\Tent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -16,6 +16,10 @@ public:
         return true;
     }
 
+    bool canTeleport() const override {
+        return false;
+    }
+
     void triggerEvent(Player& player) {
         switch (type) {
         case EventType::FoundMoney:

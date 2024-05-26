@@ -20,26 +20,35 @@ public:
 			}
 		}
 
-		addEntity(new Wall({136, 47}));
-		addEntity(new Wall({136, 48}));
-		addEntity(new Wall({136, 49}));
-		addEntity(new Wall({137, 47}));
-		addEntity(new Wall({138, 47}));
-		addEntity(new Wall({139, 47}));
-		addEntity(new Store({ 139, 47 }));
-		addEntity(new RandomEvent({ 138, 48 }));
+		addEntity(std::make_shared<Wall>(Position{ 136, 47 }));
+		addEntity(std::make_shared<Wall>(Position{ 136, 48 }));
+		addEntity(std::make_shared<Wall>(Position{ 136, 49 }));
+		addEntity(std::make_shared<Wall>(Position{ 137, 47 }));
+		addEntity(std::make_shared<Wall>(Position{ 138, 47 }));
+		addEntity(std::make_shared<Wall>(Position{ 139, 47 }));
+		addEntity(std::make_shared<Store>(Position{ 139, 47 }));
+		addEntity(std::make_shared<RandomEvent>(Position{ 138, 48 }));
 
 	}
 
-	void addEntity(Entity* entity)
+	void addEntity(std::shared_ptr<Entity> entity)
 	{
-		std::shared_ptr<Entity> _entity(entity);
 		Position pos = entity->getPosition();
 		int x = pos.x;
 		int y = pos.y;
 		if (x >= 0 && x < width && y >= 0 && y < height)
 		{
-			map[y][x] = _entity;
+			map[y][x] = entity;
+		}
+	}
+
+	void removeEntity(const Position& pos)
+	{
+		int x = pos.x;
+		int y = pos.y;
+		if (x >= 0 && x < width && y >= 0 && y < height)
+		{
+			map[y][x] = nullptr;
 		}
 	}
 
@@ -55,6 +64,20 @@ public:
 		}
 		return false; // out of bounds
 	}
+
+	bool canTeleport(int x, int y) const
+	{
+		if (x >= 0 && x < width && y >= 0 && y < height)
+		{
+			if (map[y][x])
+			{
+				return map[y][x]->canTeleport();
+			}
+			return true;
+		}
+		return false;
+	}
+
 
 	std::shared_ptr<Entity> getEntity(int x, int y) const
 	{

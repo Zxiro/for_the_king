@@ -23,7 +23,9 @@ public :
 		this->maxFocus = focus;
 		this->maxVitality = vitality;
 	}
-
+	bool canTeleport() const override {
+		return false;
+	}
 	virtual double getVitality() const
 	{
 		return vitality;

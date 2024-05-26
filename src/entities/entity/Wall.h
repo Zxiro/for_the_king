@@ -11,6 +11,9 @@ public:
     bool isPassable() const override {
         return false;
     }
+    bool canTeleport() const override {
+        return false;
+    }
 };
 
 #endif // WALL_H
