@@ -33,7 +33,7 @@ public:
 
 	void teleportPlayer(Player& player, const Position& newPosition) {
 		if (isPositionValid(newPosition)) {
-			player.setPosition(newPosition); //TODO::尚不確定玩家位置怎麼存儲
+			player.setPosition(newPosition);
 		}
 		else {
 			throw std::invalid_argument("Invalid teleport position.");
