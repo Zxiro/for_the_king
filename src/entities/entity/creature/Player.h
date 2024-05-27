@@ -13,7 +13,6 @@
 #include "../../../enum/InteractiveType.h"
 #include "../../../manager/BackpackManager.h"
 
-
 class Player : public Creature
 {
 public:
@@ -185,7 +184,50 @@ public:
 		return this->accessory.get();
 	}
 	// items function
+		
+	void useItem(std::shared_ptr<Item> item, const Position& position = Position{}, int playerIndex = -1) {
+		if (!item) return;
 
+		if (item->getName() == "GodsBeard") {
+			int newVitality = getVitality() + 25;
+			if (newVitality > getMaxVitality()) {
+				newVitality = getMaxVitality();
+			}
+			setVitality(newVitality);
+		}
+		else if (item->getName() == "GoldenRoot") {
+			int newFocus = getFocus() + 3;
+			if (newFocus > getMaxFocus()) {
+				newFocus = getMaxFocus();
+			}
+			setFocus(newFocus);
+		}
+		else if (item->getName() == "TeleportScroll") {
+			Singleton<GameManager>::instance().teleportPlayer(*this, position);
+		}
+		else if (item->getName() == "Tent") {
+			Position playerPosition = this->getPosition();
+			auto tentEntity = std::make_shared<Tent>(playerPosition);
+			Singleton<GameManager>::instance().addEntity(tentEntity);
+			if (playerIndex != -1) {
+				tentEntity->setPlacedByPlayerIndex(playerIndex);
+			}
+		}
+	}
+
+	void heal(int healthGain, int focusGain) {
+		int newVitality = getVitality() + healthGain;
+		if (newVitality > getMaxVitality()) {
+			newVitality = getMaxVitality();
+		}
+		setVitality(newVitality);
+
+		int newFocus = getFocus() + focusGain;
+		if (newFocus > getMaxFocus()) {
+			newFocus = getMaxFocus();
+		}
+		setFocus(newFocus);
+	}
 
 	// getter setter
 	double getVitality() const override

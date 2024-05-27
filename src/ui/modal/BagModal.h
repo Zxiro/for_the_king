@@ -51,26 +51,17 @@ private:
 			isUse = true;
 		}
 		else if (useItem != nullptr) {
-			if (useItem->getName() == "Godsbeard") {
-				static_cast<Godsbeard*>(useItem.get())->use(this->players[playerIndex]);
-				isUse = true;
-			}
-			else if (useItem->getName() == "GoldenRoot") {
-				static_cast<GoldenRoot*>(useItem.get())->use(this->players[playerIndex]);
-		        isUse = true;
-			}
-			else if (useItem->getName() == "TeleportScroll") {
+			if (useItem->getName() == "TeleportScroll") {
 				Position newPosition = openMapAndSelectPosition();
-				Singleton<GameManager>::instance().teleportPlayer(this->players[playerIndex], newPosition);
-				isUse = true;
+				this->players[playerIndex].useItem(useItem, newPosition);
 			}
 			else if (useItem->getName() == "Tent") {
-				Position playerPosition = this->players[playerIndex].getPosition();
-				auto tent = std::make_shared<Tent>(playerPosition);
-				Singleton<GameManager>::instance().addEntity(tent);
-				tent->setPlacedByPlayerIndex(playerIndex);
-				isUse = true;
+				this->players[playerIndex].useItem(useItem, {}, playerIndex);
 			}
+			else {
+				this->players[playerIndex].useItem(useItem);
+			}
+			isUse = true;
 		}
 
 		if(isUse)

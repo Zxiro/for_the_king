@@ -9,12 +9,5 @@ public:
         return "GoldenRoot";
     }
 
-    void use(Player& player) {
-        int newFocus = player.getFocus() + 3;
-        if (newFocus > player.getMaxFocus()) {
-            newFocus = player.getMaxFocus();
-        }
-        player.setFocus(newFocus);
-    }
 };
 #endif

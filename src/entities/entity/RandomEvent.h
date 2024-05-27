@@ -5,7 +5,7 @@
 #include "../../structs/Position.h"
 #include "creature/Player.h"
 #include <cstdlib>
-#include "../enum/EventType.h";
+#include "../../enum/EventType.h";
 
 
 class RandomEvent : public Entity {

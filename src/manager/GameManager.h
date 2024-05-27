@@ -4,8 +4,8 @@
 
 #include "../entities/entity/RandomEvent.h"
 #include "../entities/Board.h"
-#include "../entities/entity/creature/Player.h"
 #include "../entities/item/Tent.h"
+
 //TODO:: 玩家回合結束 和 移動階段時正確更新帳篷的狀態。
 class GameManager
 {
@@ -26,6 +26,7 @@ public:
 	//GameStateManager gameStateManager;
 	//EventManager eventManager;
 	//BattleManager battleManager;
+
 	bool isPositionValid(const Position& position) {
 		// 確保位置可通行(Road) 且 不在可互動的物件上
 		return map->canTeleport(position.x, position.y);
@@ -66,7 +67,9 @@ public:
 			auto pos = player.getPosition();
 			if (auto entity = map->getEntity(pos.x, pos.y)) {
 				if (auto tent = std::dynamic_pointer_cast<Tent>(entity)) {
-					tent->healPlayer(player);
+					int healthGain = 50;
+					int focusGain = 5;
+					player.heal(healthGain, focusGain);
 				}
 			}
 		}
