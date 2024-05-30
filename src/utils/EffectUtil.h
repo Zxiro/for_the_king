@@ -2,91 +2,73 @@
 #define EFFECT_UTIL_H
 #include "../entities/item/equipment/Equipment.h"
 
-template<class T>
-class EffectUtil
-{
+template <class T> class EffectUtil {
 public:
-	template<class T = Equipment>
+  template <class U = Equipment>
 
-	static int getSpeedEffect(T* equip)
-	{
-		if (equip == nullptr)
-		{
-			return 0;
-		}
-	
-		return equip->getEffect().speedEffect;
-	}
+  static int getSpeedEffect(T *equip) {
+    if (equip == nullptr) {
+      return 0;
+    }
 
-	static int getFocus(T* equip)
-	{
-		if (equip == nullptr)
-		{
-			return 0;
-		}
+    return equip->getEffect().speedEffect;
+  }
 
-		return equip->getEffect().focusEffect;
-	}
+  static int getFocus(T *equip) {
+    if (equip == nullptr) {
+      return 0;
+    }
 
-	static int getSpeed(T* equip)
-	{
-		if (equip == nullptr)
-		{
-			return 0;
-		}
+    return equip->getEffect().focusEffect;
+  }
 
-		return equip->getEffect().speedEffect;
-	}
+  static int getSpeed(T *equip) {
+    if (equip == nullptr) {
+      return 0;
+    }
 
-	static int getHitRate(T* equip)
-	{
-		if (equip == nullptr)
-		{
-			return 0;
-		}
+    return equip->getEffect().speedEffect;
+  }
 
-		return equip->getEffect().hitRateEffect;
-	}
+  static int getHitRate(T *equip) {
+    if (equip == nullptr) {
+      return 0;
+    }
 
-	static int getPAttack(T* equip)
-	{
-		if (equip == nullptr)
-		{
-			return 0;
-		}
+    return equip->getEffect().hitRateEffect;
+  }
 
-		return equip->getEffect().pAttackEffect;
-	}
+  static int getPAttack(T *equip) {
+    if (equip == nullptr) {
+      return 0;
+    }
 
-	static int getMAttack(T* equip)
-	{
-		if (equip == nullptr)
-		{
-			return 0;
-		}
+    return equip->getEffect().pAttackEffect;
+  }
 
-		return equip->getEffect().mAttackEffect;
-	}
+  static int getMAttack(T *equip) {
+    if (equip == nullptr) {
+      return 0;
+    }
 
-	static int getPDefense(T* equip)
-	{
-		if (equip == nullptr)
-		{
-			return 0;
-		}
+    return equip->getEffect().mAttackEffect;
+  }
 
-		return equip->getEffect().pDefenseEffect;
-	}
+  static int getPDefense(T *equip) {
+    if (equip == nullptr) {
+      return 0;
+    }
 
-	static int getMDefense(T* equip)
-	{
-		if (equip == nullptr)
-		{
-			return 0;
-		}
+    return equip->getEffect().pDefenseEffect;
+  }
 
-		return equip->getEffect().mDefenseEffect;
-	}
+  static int getMDefense(T *equip) {
+    if (equip == nullptr) {
+      return 0;
+    }
+
+    return equip->getEffect().mDefenseEffect;
+  }
 };
 
 #endif

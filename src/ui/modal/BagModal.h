@@ -1,13 +1,12 @@
 #ifndef BAGMODAL_H
 #define BAGMODAL_H
 
-#include "../../entities/entity/creature/Player.h";
+#include "../../entities/entity/creature/Player.h"
 #include "../../manager/BackpackManager.h"
 #include "../../manager/GameManager.h"
 
 
 using namespace std;
-using namespace ftxui;
 
 class BagModal
 {

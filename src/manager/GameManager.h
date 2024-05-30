@@ -2,93 +2,90 @@
 #define GAMEMANAGER_H
 #include <vector>
 
-#include "../entities/entity/RandomEvent.h"
 #include "../entities/Board.h"
-#include "../entities/item/Tent.h"
+#include "../entities/entity/RandomEvent.h"
+// #include "../entities/item/Tent.h"
 
-//TODO:: ª±®a¦^¦Xµ²§ô ©M ²¾°Ê¶¥¬q®É¥¿½T§ó·s±bÁOªºª¬ºA¡C
-class GameManager
-{
+// TODO:: ï¿½aï¿½^ï¿½Xï¿½ ï¿½M ï¿½Ê¶ï¿½qï¿½É¥ï¿½Tï¿½sï¿½bï¿½Oï¿½Aï¿½C
+class GameManager {
 public:
-	GameManager()
-	{
-		players = {};
-		enemies = {};
-		worldEvent = {};
-		map = new Board(140, 50);
-	}
-	int currentPlayer = 0;
-	std::vector<Player> players;
-	std::vector<Player> enemies;
-	std::vector<RandomEvent> worldEvent;
-	Board* map;
-	//UIManager uiManager;
-	//GameStateManager gameStateManager;
-	//EventManager eventManager;
-	//BattleManager battleManager;
+  GameManager() {
+    players = {};
+    enemies = {};
+    worldEvent = {};
+    map = new Board(140, 50);
+  }
+  int currentPlayer = 0;
+  std::vector<Player> players;
+  std::vector<Player> enemies;
+  std::vector<RandomEvent> worldEvent;
+  Board *map;
+  // UIManager uiManager;
+  // GameStateManager gameStateManager;
+  // EventManager eventManager;
+  // BattleManager battleManager;
 
-	bool isPositionValid(const Position& position) {
-		// ½T«O¦ì¸m¥i³q¦æ(Road) ¥B ¤£¦b¥i¤¬°Êªºª«¥ó¤W
-		return map->canTeleport(position.x, position.y);
-	}
+  // bool isPositionValid(const Position& position) {
+  // 	// ï¿½Tï¿½Oï¿½mï¿½iï¿½qï¿½(Road) ï¿½B ï¿½bï¿½iï¿½Êªï¿½W
+  // 	return map->canTeleport(position.x, position.y);
+  // }
 
-	void teleportPlayer(Player& player, const Position& newPosition) {
-		if (isPositionValid(newPosition)) {
-			player.setPosition(newPosition);
-		}
-		else {
-			throw std::invalid_argument("Invalid teleport position.");
-		}
-	}
+  // void teleportPlayer(Player& player, const Position& newPosition) {
+  // 	if (isPositionValid(newPosition)) {
+  // 		player.setPosition(newPosition);
+  // 	}
+  // 	else {
+  // 		throw std::invalid_argument("Invalid teleport position.");
+  // 	}
+  // }
 
-	void addEntity(std::shared_ptr<Entity> entity) {
-		map->addEntity(entity);
-		if (auto tent = std::dynamic_pointer_cast<Tent>(entity)) {
-			tents.push_back(tent);
-		}
-	}
+  // void addEntity(std::shared_ptr<Entity> entity) {
+  // 	map->addEntity(entity);
+  // 	if (auto tent = std::dynamic_pointer_cast<Tent>(entity)) {
+  // 		tents.push_back(tent);
+  // 	}
+  // }
 
-	void updateTents() {
-		for (auto it = tents.begin(); it != tents.end(); ) {
-			auto tent = *it;
-			tent->incrementTurnCounter();
-			if (tent->shouldRemove()) {
-				map->removeEntity(tent->getPosition());
-				it = tents.erase(it);
-			}
-			else {
-				++it;
-			}
-		}
-	}
+  // void updateTents() {
+  // 	for (auto it = tents.begin(); it != tents.end(); ) {
+  // 		auto tent = *it;
+  // 		tent->incrementTurnCounter();
+  // 		if (tent->shouldRemove()) {
+  // 			map->removeEntity(tent->getPosition());
+  // 			it = tents.erase(it);
+  // 		}
+  // 		else {
+  // 			++it;
+  // 		}
+  // 	}
+  // }
 
-	void healPlayersOnTents() {
-		for (auto& player : players) {
-			auto pos = player.getPosition();
-			if (auto entity = map->getEntity(pos.x, pos.y)) {
-				if (auto tent = std::dynamic_pointer_cast<Tent>(entity)) {
-					int healthGain = 50;
-					int focusGain = 5;
-					player.heal(healthGain, focusGain);
-				}
-			}
-		}
-	}
+  // void healPlayersOnTents() {
+  // 	for (auto& player : players) {
+  // 		auto pos = player.getPosition();
+  // 		if (auto entity = map->getEntity(pos.x, pos.y)) {
+  // 			if (auto tent = std::dynamic_pointer_cast<Tent>(entity))
+  // { 				int healthGain = 50; int focusGain = 5;
+  // player.heal(healthGain, focusGain);
+  // 			}
+  // 		}
+  // 	}
+  // }
 
-	void endPlayerTurn(int playerIndex) {
-		// ª±®a¦^¦Xµ²§ô®ÉÄ²µo±bÁOªvÀø
-		healPlayersOnTents();
-		// §ó·s±bÁOª¬ºA
-		updateTents();
-	}
+  // void endPlayerTurn(int playerIndex) {
+  // 	// ï¿½aï¿½^ï¿½Xï¿½Ä²ï¿½oï¿½bï¿½Oï¿½vï¿½
+  // 	healPlayersOnTents();
+  // 	// ï¿½sï¿½bï¿½Oï¿½A
+  // 	updateTents();
+  // }
 
-	void playerMove(int playerIndex) {
-		// ª±®a²¾°Ê®ÉÄ²µo±bÁO²¾°£ÀË¬d
-		updateTents();
-	}
+  // void playerMove(int playerIndex) {
+  // 	// ï¿½aï¿½Ê®ï¿½Ä²ï¿½oï¿½bï¿½Oï¿½Ë¬d
+  // 	updateTents();
+  // }
 
 private:
-	std::vector<std::shared_ptr<Tent>> tents;
+  // std::vector<std::shared_ptr<Tent>> tents;
 
 protected:
 };
